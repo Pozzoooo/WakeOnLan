@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="appName">Wake On Lan</string>
+    <string name="wake">Wake</string>
+    <string name="add">Add</string>
+    <string name="done">Done</string>
+    <string name="discard">Cancel</string>
+    <string name="arrow">Arrow</string>
+    <string name="welcome">Welcome</string>
+    <string name="help">Help</string>
+    <string name="close">Close</string>
+    <string name="delete">Remove</string>
+    <string name="edit">Edit</string>
+
+    <string name="wakeSent">Package sent</string>
+
+<!--     Tutorial messages -->
+    <string name="tutoCreate">Use this button to create a new entry</string>
+    <string name="tutoWake">Just touch an entry to sent a new Magic Package</string>
+    <string name="tutoEditWake">Use long touch for more options</string>
+    <string name="tutoHelp">The question mark will help you with more information</string>
+    <string name="macNotValid">Given MAC is not valid, pleas review</string>
+
+<!--     Labels -->
+    <string name="yourIp">Your IP</string>
+    <string name="ip">IP</string>
+    <string name="name">Name</string>
+    <string name="port">Port</string>
+    <string name="netBroadcast">Broadcast</string>
+    <string name="macAddress">MAC Address</string>
+
+<!--     Help -->
+	<string name="helpMsg">You need to pre-configure desired machine(s) to 
+	    make it work (wake), there is an option on Setup (BIOS) and another
+	    on you SO.
+	    I will put some helpful links right here (really son).</string>
+	<string name="helpLink1"></string>
+	<string name="helpLink2"></string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="appName">Wake On Lan</string>
+    <string name="wake">Acordar</string>
+    <string name="add">Adicionar</string>
+    <string name="done">Salvar</string>
+    <string name="discard">Cancelar</string>
+    <string name="arrow">Flecha</string>
+    <string name="welcome">Bem Vindo</string>
+    <string name="help">Ajuda</string>
+    <string name="close">Fechar</string>
+    <string name="delete">Remover</string>
+    <string name="edit">Editar</string>
+
+    <string name="wakeSent">Pacote enviado</string>
+
+<!--     Tutorial messages -->
+    <string name="tutoCreate">Para criar novos registros utilize este botão</string>
+    <string name="tutoWake">Para enviar o pacote mágico, apenas toque a linha desejada</string>
+    <string name="tutoEditWake">Para mais funcionalidades a entrada criada, de um toque longo na linha desejada</string>
+    <string name="tutoHelp">Se precisar de mais ajuda, pode utilizar o menu de ajuda</string>
+    <string name="macNotValid">Mac não válido, por favor verifique</string>
+
+<!--     Labels -->
+    <string name="yourIp">Seu IP</string>
+    <string name="ip">IP</string>
+    <string name="name">Nome</string>
+    <string name="port">Porta</string>
+    <string name="netBroadcast">Broadcast</string>
+    <string name="macAddress">Mac Address</string>
+
+<!--     Help -->
+	<string name="helpMsg">Para que o aplicativo funcione, é preciso que seja previamente 
+	    configurado a máquina, ativando no Setup (BIOS) e configuração do SO.
+	    Vou adicionar links de ajuda aqui, (muito breve).</string>
+	<string name="helpLink1"></string>
+	<string name="helpLink2"></string>
+
+</resources>

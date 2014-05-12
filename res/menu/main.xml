@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_help"
+        android:showAsAction="ifRoom"
+        android:title="@string/help"
+        android:icon="@drawable/ic_action_help"
+        android:onClick="onHelp" />
+
+    <item
+        android:id="@+id/action_add"
+        android:showAsAction="always"
+        android:title="@string/add"
+        android:icon="@drawable/ic_add"
+        android:onClick="onAdd" />
+</menu>

@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/eMac"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/macAddress" >
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/eIp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:inputType="text"
+		android:hint="@string/ip" />
+
+    <EditText
+        android:id="@+id/ePort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:inputType="number"
+		android:hint="@string/port" />
+
+    <EditText
+        android:id="@+id/eName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:inputType="text"
+		android:hint="@string/name" />
+
+</LinearLayout>
