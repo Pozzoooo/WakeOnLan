@@ -9,13 +9,16 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.bugsense.trace.BugSenseHandler;
 import com.pozzo.wakeonlan.R;
-import com.pozzo.wakeonlan.helper.IpUtils;
+import com.pozzo.wakeonlan.helper.NetworkUtils;
 import com.pozzo.wakeonlan.vo.WakeEntry;
 
 /**
@@ -26,18 +29,21 @@ import com.pozzo.wakeonlan.vo.WakeEntry;
  */
 public class WakeEntryFrag extends Fragment {
 	private WakeEntry entry;
-	private IpUtils utils;
+	private NetworkUtils utils;
 
 	private EditText eMac;
 	private EditText eIp;
 	private EditText ePort;
 	private EditText eName;
+	private EditText eTrigger;
+
+	private ImageButton bHelpTrigger;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		utils = new IpUtils();
+		utils = new NetworkUtils();
 
 		if(savedInstanceState != null)
 			restoreInstance(savedInstanceState);
@@ -59,13 +65,28 @@ public class WakeEntryFrag extends Fragment {
 		eIp = (EditText) contentView.findViewById(R.id.eIp);
 		ePort = (EditText) contentView.findViewById(R.id.ePort);
 		eName = (EditText) contentView.findViewById(R.id.eName);
+		eTrigger = (EditText) contentView.findViewById(R.id.eTriggerSsid);
+		bHelpTrigger = (ImageButton) contentView.findViewById(R.id.bHelpTrigger);
 
 		fillLayout();
 
 		eMac.setOnFocusChangeListener(onMacDone);
+		bHelpTrigger.setOnClickListener(onHelpTrigger);
 
 		return contentView;
 	}
+
+	/**
+	 * To help user understand it.
+	 */
+	private OnClickListener onHelpTrigger = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			HelpDialog dialog = HelpDialog.newInstance(getString(R.string.helpTrigger));
+			dialog.show(getFragmentManager(), "help");
+		}
+	};
 
 	/**
 	 * @return The entry.
@@ -86,6 +107,7 @@ public class WakeEntryFrag extends Fragment {
 		entry.setIp(eIp.getText().toString());
 		entry.setPort(Integer.parseInt(ePort.getText().toString()));
 		entry.setName(eName.getText().toString());
+		entry.setTriggerSsid(eTrigger.getText().toString());
 	}
 
 	private Drawable defBackground;
@@ -151,15 +173,14 @@ public class WakeEntryFrag extends Fragment {
 	private void fillLayout() {
 		if(entry == null) {
 			entry = new WakeEntry();
-			entry.setPort(IpUtils.getDefaultWakePort());
+			entry.setPort(NetworkUtils.getDefaultWakePort());
 			try {
 				InetAddress myBroad = utils.getMyBroadcast();
 				if(myBroad != null)
 					entry.setIp(myBroad.getHostAddress());
 			} catch(final SocketException e) {
 				//We ignore, and user can fill manually
-				e.printStackTrace();
-				//TODO handle to bugsense
+				BugSenseHandler.sendException(e);
 			}
 		}
 
@@ -167,5 +188,6 @@ public class WakeEntryFrag extends Fragment {
 		eName.setText(entry.getName());
 		ePort.setText("" + entry.getPort());
 		eIp.setText(entry.getIp());
+		eTrigger.setText(entry.getTriggerSsid());
 	}
 }

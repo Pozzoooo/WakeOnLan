@@ -9,7 +9,7 @@
     <string name="welcome">Welcome</string>
     <string name="help">Help</string>
     <string name="close">Close</string>
-    <string name="delete">Remove</string>
+    <string name="delete">Delete</string>
     <string name="edit">Edit</string>
 
     <string name="wakeSent">Package sent</string>
@@ -20,6 +20,8 @@
     <string name="tutoEditWake">Use long touch for more options</string>
     <string name="tutoHelp">The question mark will help you with more information</string>
     <string name="macNotValid">Given MAC is not valid, pleas review</string>
+    <string name="ioSentError">Problem while sending message, are you connected?</string>
+    <string name="valuesError">Error on evaluation, are your data correct?</string>
 
 <!--     Labels -->
     <string name="yourIp">Your IP</string>
@@ -28,12 +30,13 @@
     <string name="port">Port</string>
     <string name="netBroadcast">Broadcast</string>
     <string name="macAddress">MAC Address</string>
+    <string name="triggerSsid">Trigger on network</string>
 
 <!--     Help -->
 	<string name="helpMsg">You need to pre-configure desired machine(s) to 
 	    make it work (wake), there is an option on Setup (BIOS) and another
 	    on you SO.
-	    I will put some helpful links right here (really son).</string>
-	<string name="helpLink1"></string>
-	<string name="helpLink2"></string>
+	    Take a look at link for more details.</string>
+	<string name="helpTrigger">Name of a network which will trigger (when connected) current wake message, or empty for no trigger.</string>
+	<string name="helpLink"><a href="http://windows7-issues.blogspot.com.br/2011/03/wake-on-lan-wol-for-windows-7-made-easy.html">Windows</a></string>
 </resources>

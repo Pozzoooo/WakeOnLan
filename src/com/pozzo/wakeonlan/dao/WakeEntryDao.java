@@ -1,6 +1,8 @@
 package com.pozzo.wakeonlan.dao;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -51,6 +53,24 @@ public class WakeEntryDao {
 			entry = WakeEntryCr.objectFrom(cursor);
 		}
 		return entry;
+	}
+
+	/**
+	 * Look for all {@link WakeEntry} objects saved on database which match the exactly trigger 
+	 * 	network.
+	 * 
+	 * @param trigger to be matched.
+	 * @return a list of all matched entries.
+	 */
+	public List<WakeEntry> getByTrigger(String trigger) {
+		List<WakeEntry> entries = new ArrayList<WakeEntry>();
+		SQLiteDatabase db = new ConexaoDBManager().getDb();
+		Cursor cursor = db.query(WakeEntryCr.TB_NAME, null, WakeEntryCr.TRIGGER_SSID + " like ?", 
+				new String[] {trigger}, null, null, null);
+		while(cursor.moveToNext()) {
+			entries.add(WakeEntryCr.objectFrom(cursor));
+		}
+		return entries;
 	}
 
 	/**

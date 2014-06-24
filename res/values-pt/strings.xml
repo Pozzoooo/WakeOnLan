@@ -21,6 +21,8 @@
     <string name="tutoEditWake">Para mais funcionalidades a entrada criada, de um toque longo na linha desejada</string>
     <string name="tutoHelp">Se precisar de mais ajuda, pode utilizar o menu de ajuda</string>
     <string name="macNotValid">Mac não válido, por favor verifique</string>
+    <string name="ioSentError">Dificuldades no envio da mensagem, você esta conectado?</string>
+    <string name="valuesError">Erro ao criar mensagem, os dados estão corretos?</string>
 
 <!--     Labels -->
     <string name="yourIp">Seu IP</string>
@@ -29,12 +31,11 @@
     <string name="port">Porta</string>
     <string name="netBroadcast">Broadcast</string>
     <string name="macAddress">Mac Address</string>
+    <string name="triggerSsid">Disparar ao acessar</string>
 
 <!--     Help -->
 	<string name="helpMsg">Para que o aplicativo funcione, é preciso que seja previamente 
 	    configurado a máquina, ativando no Setup (BIOS) e configuração do SO.
-	    Vou adicionar links de ajuda aqui, (muito breve).</string>
-	<string name="helpLink1"></string>
-	<string name="helpLink2"></string>
-
+	    Mais detalhes no link.</string>
+	    <string name="helpTrigger">Nome da rede em que será disparada a mensagem ao se conectar, ou vazio para ignorar.</string>
 </resources>

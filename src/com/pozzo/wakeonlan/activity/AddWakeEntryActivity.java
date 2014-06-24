@@ -53,7 +53,7 @@ public class AddWakeEntryActivity extends Activity {
 		wakeFrag.validateMac();
 
 		WakeEntry entry = wakeFrag.getWakeEntry();
-		new WakeBusiness().replace(entry);
+		new WakeBusiness().replace(entry, this);
 
 		setResult(RESULT_OK);
 		finish();

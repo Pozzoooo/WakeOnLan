@@ -19,6 +19,7 @@ public class WakeEntryCr {
 	public static final String NAME = "name";
 	public static final String IP = "ip";
 	public static final String PORT = "port";
+	public static final String TRIGGER_SSID = "trigger";
 
 	/**
 	 * Create Table SQL.
@@ -28,7 +29,8 @@ public class WakeEntryCr {
 			MAC_ADDRESS + " varchar unique not null, " +
 			NAME + " varchar, " + 	
 			IP + " varchar not null, " +
-			PORT + " integer not null" +
+			PORT + " integer not null, " +
+			TRIGGER_SSID + " varchar" +
 		");";
 
 	/**
@@ -43,6 +45,7 @@ public class WakeEntryCr {
 		values.put(NAME, entry.getName());
 		values.put(IP, entry.getIp());
 		values.put(PORT, entry.getPort());
+		values.put(TRIGGER_SSID, entry.getTriggerSsid());
 
 		return values;
 	}
@@ -58,6 +61,7 @@ public class WakeEntryCr {
 		entry.setName(cursor.getString(cursor.getColumnIndex(NAME)));
 		entry.setIp(cursor.getString(cursor.getColumnIndex(IP)));
 		entry.setPort(cursor.getInt(cursor.getColumnIndex(PORT)));
+		entry.setTriggerSsid(cursor.getString(cursor.getColumnIndex(TRIGGER_SSID)));
 
 		return entry;
 	}

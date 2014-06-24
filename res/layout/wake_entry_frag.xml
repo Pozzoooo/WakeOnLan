@@ -34,4 +34,25 @@
 		android:inputType="text"
 		android:hint="@string/name" />
 
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+	    <EditText
+	        android:id="@+id/eTriggerSsid"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+			android:inputType="text"
+			android:hint="@string/triggerSsid" />
+
+		<ImageButton
+		    android:id="@+id/bHelpTrigger"
+		    android:src="@drawable/ic_action_help"
+		    android:layout_height="match_parent"
+		    android:layout_width="52dp"
+		    android:contentDescription="@string/help"
+		    android:background="@null"
+		    android:layout_gravity="right" />
+    </FrameLayout>
+
 </LinearLayout>

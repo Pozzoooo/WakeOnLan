@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pozzo.wakeonlan.R;
-import com.pozzo.wakeonlan.helper.IpUtils;
+import com.pozzo.wakeonlan.helper.NetworkUtils;
 
 /**
  * This is just an informative screen.
@@ -45,7 +45,7 @@ public class InfoFrag extends Fragment {
  */
 
 	private void loadAddress() {
-		IpUtils ipUtils = new IpUtils();
+		NetworkUtils ipUtils = new NetworkUtils();
 
 		try {
 			InetAddress ip = ipUtils.getIPAddress();

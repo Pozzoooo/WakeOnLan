@@ -36,6 +36,8 @@ public class MainActivity extends Activity {
 				getFragmentManager().findFragmentById(R.id.fragEntryList);
 
 		checkEmptiness();
+
+		new WakeBusiness().startNetworkService(this);
 	}
 
 	@Override
@@ -56,7 +58,7 @@ public class MainActivity extends Activity {
 	 * User is claiming for help, lets help him!
 	 */
 	public void onHelp(MenuItem item) {
-		HelpDialog dialog = HelpDialog.newInstance();
+		HelpDialog dialog = HelpDialog.newInstance(getString(R.string.helpMsg));
 		dialog.show(getFragmentManager(), "help");
 	}
 

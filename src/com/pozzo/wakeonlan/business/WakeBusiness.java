@@ -1,6 +1,14 @@
 package com.pozzo.wakeonlan.business;
 
+import java.io.IOException;
+import java.util.List;
+
+import android.content.Context;
+import android.content.Intent;
+
 import com.pozzo.wakeonlan.dao.WakeEntryDao;
+import com.pozzo.wakeonlan.helper.WakeOnLan;
+import com.pozzo.wakeonlan.receiver.NetworkConnectionListener;
 import com.pozzo.wakeonlan.vo.WakeEntry;
 
 /**
@@ -13,9 +21,44 @@ public class WakeBusiness {
 
 	/**
 	 * @param entry to be inserted.
+	 * @param context to start listening network change if needed.
 	 */
-	public void replace(WakeEntry entry) {
+	public void replace(WakeEntry entry, Context context) {
 		new WakeEntryDao().replace(entry);
+		if(entry.getTriggerSsid() != null && entry.getTriggerSsid().length() > 0) {
+			context.startService(new Intent(context, NetworkConnectionListener.class));
+		}
+	}
+
+	/**
+	 * Initialize listener service if needed exist any entry with defined trigger.
+	 * 
+	 * @param context to start listening network change if needed.
+	 */
+	public void startNetworkService(Context context) {
+		if(getByTrigger("%").size() > 0) {
+			context.startService(new Intent(context, NetworkConnectionListener.class));
+		}
+	}
+
+	/**
+	 * Send a wake up message to given entry.
+	 * 
+	 * @param entry
+	 * @throws IOException
+	 */
+	public void wakeUp(WakeEntry entry) throws IOException {
+		new WakeOnLan().wakeUp(entry.getIp(), entry.getMacAddress(), entry.getPort());
+	}
+
+	/**
+	 * Get all {@link WakeEntry} objects which match givven trigger.
+	 * 
+	 * @param trigger to be matched.
+	 * @return a list of all matched entries.
+	 */
+	public List<WakeEntry> getByTrigger(String trigger) {
+		return new WakeEntryDao().getByTrigger(trigger);
 	}
 
 	/**

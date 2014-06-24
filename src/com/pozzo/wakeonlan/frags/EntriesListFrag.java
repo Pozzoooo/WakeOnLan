@@ -34,7 +34,6 @@ import com.pozzo.wakeonlan.adapters.WakeListAdapter;
 import com.pozzo.wakeonlan.business.WakeBusiness;
 import com.pozzo.wakeonlan.database.ConexaoDBManager;
 import com.pozzo.wakeonlan.database.WakeEntryCr;
-import com.pozzo.wakeonlan.helper.WakeOnLan;
 import com.pozzo.wakeonlan.vo.WakeEntry;
 
 /**
@@ -183,24 +182,25 @@ public class EntriesListFrag extends Fragment {
 	 * Ok, User wants to wake something UP, lets do it!
 	 */
 	private void wake(final WakeEntry entry) {
-		new AsyncTask<Void, Void, String>() {
+		new AsyncTask<Void, Void, Integer>() {
 
 			@Override
-			protected String doInBackground(Void... params) {
+			protected Integer doInBackground(Void... params) {
 				try {
-					new WakeOnLan().wakeUp(entry.getIp(), entry.getMacAddress(), entry.getPort());
+					new WakeBusiness().wakeUp(entry);
 				} catch (IOException e) {
-					return e.getMessage();
+					return R.string.ioSentError;
+				} catch (RuntimeException e) {
+					return R.string.valuesError;
 				}
 				return null;
 			}
 
-			protected void onPostExecute(String result) {
+			protected void onPostExecute(Integer result) {
 				if(result == null)
 					Toast.makeText(getActivity(), R.string.wakeSent, Toast.LENGTH_LONG).show();
 				else
-					Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
-				//TODO fazer verificacao do que da errado, sem internet?
+					Toast.makeText(getActivity(), getString(result), Toast.LENGTH_LONG).show();
 			}
 		}.execute();
 	}

@@ -52,30 +52,33 @@ containing a value of this type.
         public static final int ic_launcher=0x7f02000c;
     }
     public static final class id {
-        public static final int action_add=0x7f0a0015;
-        public static final int action_help=0x7f0a0014;
+        public static final int action_add=0x7f0a0018;
+        public static final int action_help=0x7f0a0017;
         public static final int bCancel=0x7f0a0001;
-        public static final int bClose=0x7f0a0004;
+        public static final int bClose=0x7f0a0005;
+        public static final int bHelpTrigger=0x7f0a0016;
         public static final int bSend=0x7f0a0002;
-        public static final int eIp=0x7f0a0011;
-        public static final int eMac=0x7f0a0010;
-        public static final int eName=0x7f0a0013;
-        public static final int ePort=0x7f0a0012;
-        public static final int fragEntryList=0x7f0a0007;
+        public static final int eIp=0x7f0a0012;
+        public static final int eMac=0x7f0a0011;
+        public static final int eName=0x7f0a0014;
+        public static final int ePort=0x7f0a0013;
+        public static final int eTriggerSsid=0x7f0a0015;
+        public static final int fragEntryList=0x7f0a0008;
         public static final int fragment_container=0x7f0a0000;
-        public static final int iFirstArrow=0x7f0a000a;
-        public static final int lAddr=0x7f0a000f;
-        public static final int lBroadcast=0x7f0a0006;
-        public static final int lIp=0x7f0a0005;
-        public static final int lMacAddr=0x7f0a000e;
+        public static final int iFirstArrow=0x7f0a000b;
+        public static final int lAddr=0x7f0a0010;
+        public static final int lBroadcast=0x7f0a0007;
+        public static final int lIp=0x7f0a0006;
+        public static final int lLink=0x7f0a0004;
+        public static final int lMacAddr=0x7f0a000f;
         public static final int lMsg=0x7f0a0003;
-        public static final int lName=0x7f0a000d;
-        public static final int lTutoMessage=0x7f0a000c;
-        public static final int lWelcome=0x7f0a000b;
-        public static final int listEntries=0x7f0a0008;
-        public static final int mDelete=0x7f0a0017;
-        public static final int mEdit=0x7f0a0016;
-        public static final int vgTutorial=0x7f0a0009;
+        public static final int lName=0x7f0a000e;
+        public static final int lTutoMessage=0x7f0a000d;
+        public static final int lWelcome=0x7f0a000c;
+        public static final int listEntries=0x7f0a0009;
+        public static final int mDelete=0x7f0a001a;
+        public static final int mEdit=0x7f0a0019;
+        public static final int vgTutorial=0x7f0a000a;
     }
     public static final class layout {
         public static final int add_wake_entry_activity=0x7f030000;
@@ -102,19 +105,21 @@ containing a value of this type.
         public static final int done=0x7f060005;
         public static final int edit=0x7f06000c;
         public static final int help=0x7f060009;
-        public static final int helpLink1=0x7f06001a;
-        public static final int helpLink2=0x7f06001b;
+        public static final int helpLink=0x7f06001e;
         /**      Help 
      Help 
          */
-        public static final int helpMsg=0x7f060019;
-        public static final int ip=0x7f060014;
-        public static final int macAddress=0x7f060018;
+        public static final int helpMsg=0x7f06001c;
+        public static final int helpTrigger=0x7f06001d;
+        public static final int ioSentError=0x7f060013;
+        public static final int ip=0x7f060016;
+        public static final int macAddress=0x7f06001a;
         public static final int macNotValid=0x7f060012;
-        public static final int name=0x7f060015;
-        public static final int netBroadcast=0x7f060017;
-        public static final int port=0x7f060016;
+        public static final int name=0x7f060017;
+        public static final int netBroadcast=0x7f060019;
+        public static final int port=0x7f060018;
         public static final int readTime=0x7f060001;
+        public static final int triggerSsid=0x7f06001b;
         /**      Tutorial messages 
      Tutorial messages 
          */
@@ -122,13 +127,14 @@ containing a value of this type.
         public static final int tutoEditWake=0x7f060010;
         public static final int tutoHelp=0x7f060011;
         public static final int tutoWake=0x7f06000f;
+        public static final int valuesError=0x7f060014;
         public static final int wake=0x7f060003;
         public static final int wakeSent=0x7f06000d;
         public static final int welcome=0x7f060008;
         /**      Labels 
      Labels 
          */
-        public static final int yourIp=0x7f060013;
+        public static final int yourIp=0x7f060015;
     }
     public static final class style {
         /**  Application theme. 

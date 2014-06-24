@@ -16,6 +16,7 @@ public class WakeEntry implements Serializable {
 	private String macAddress;
 	private String ip;
 	private int port;
+	private String triggerSsid;
 
 	public void setId(long id) {
 		this.id = id;
@@ -46,5 +47,11 @@ public class WakeEntry implements Serializable {
 	}
 	public void setPort(int port) {
 		this.port = port;
+	}
+	public void setTriggerSsid(String triggerSsid) {
+		this.triggerSsid = triggerSsid;
+	}
+	public String getTriggerSsid() {
+		return triggerSsid;
 	}
 }
