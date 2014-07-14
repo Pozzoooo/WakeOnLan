@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bugsense.trace.BugSenseHandler;
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.helper.NetworkUtils;
+import com.pozzo.wakeonlan.receiver.NetworkConnectionListener;
 import com.pozzo.wakeonlan.vo.WakeEntry;
 
 /**
@@ -36,8 +37,6 @@ public class WakeEntryFrag extends Fragment {
 	private EditText ePort;
 	private EditText eName;
 	private EditText eTrigger;
-
-	private ImageButton bHelpTrigger;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,12 +65,16 @@ public class WakeEntryFrag extends Fragment {
 		ePort = (EditText) contentView.findViewById(R.id.ePort);
 		eName = (EditText) contentView.findViewById(R.id.eName);
 		eTrigger = (EditText) contentView.findViewById(R.id.eTriggerSsid);
-		bHelpTrigger = (ImageButton) contentView.findViewById(R.id.bHelpTrigger);
+
+		ImageButton bHelpTrigger = (ImageButton) contentView.findViewById(R.id.bHelpTrigger);
+		ImageButton bSsid = (ImageButton) contentView.findViewById(R.id.bSsid);
 
 		fillLayout();
 
 		eMac.setOnFocusChangeListener(onMacDone);
+
 		bHelpTrigger.setOnClickListener(onHelpTrigger);
+		bSsid.setOnClickListener(onGetSsid);
 
 		return contentView;
 	}
@@ -85,6 +88,21 @@ public class WakeEntryFrag extends Fragment {
 		public void onClick(View v) {
 			HelpDialog dialog = HelpDialog.newInstance(getString(R.string.helpTrigger));
 			dialog.show(getFragmentManager(), "help");
+		}
+	};
+
+	/**
+	 * Go get current network ssid used.
+	 */
+	private OnClickListener onGetSsid = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			String ssid = NetworkConnectionListener.getNetworkSsid(getActivity());
+			if(ssid == null || ssid.length() < 1) {
+				Toast.makeText(getActivity(), R.string.cantGetSsid, Toast.LENGTH_LONG).show();
+			} else
+				eTrigger.setText(ssid);
 		}
 	};
 

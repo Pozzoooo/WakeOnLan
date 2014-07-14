@@ -12,7 +12,11 @@
     <string name="close">Fechar</string>
     <string name="delete">Remover</string>
     <string name="edit">Editar</string>
+    <string name="search">Buscar</string>
+    <string name="recover">Recuperar</string>
 
+    <string name="getCurrent">Buscar atual</string>
+    <string name="deletedList">Listar removidos</string>
     <string name="wakeSent">Pacote enviado</string>
 
 <!--     Tutorial messages -->
@@ -20,9 +24,12 @@
     <string name="tutoWake">Para enviar o pacote mágico, apenas toque a linha desejada</string>
     <string name="tutoEditWake">Para mais funcionalidades a entrada criada, de um toque longo na linha desejada</string>
     <string name="tutoHelp">Se precisar de mais ajuda, pode utilizar o menu de ajuda</string>
+    
+<!--     Mensagens de erro -->
     <string name="macNotValid">Mac não válido, por favor verifique</string>
     <string name="ioSentError">Dificuldades no envio da mensagem, você esta conectado?</string>
     <string name="valuesError">Erro ao criar mensagem, os dados estão corretos?</string>
+    <string name="cantGetSsid">Não foi possível pegar o nome da rede atual</string>
 
 <!--     Labels -->
     <string name="yourIp">Seu IP</string>

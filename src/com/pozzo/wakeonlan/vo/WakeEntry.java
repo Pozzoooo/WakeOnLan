@@ -1,6 +1,7 @@
 package com.pozzo.wakeonlan.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * The infos we need to wake a machine.
@@ -17,6 +18,7 @@ public class WakeEntry implements Serializable {
 	private String ip;
 	private int port;
 	private String triggerSsid;
+	private Date deletedDate;
 
 	public void setId(long id) {
 		this.id = id;
@@ -53,5 +55,11 @@ public class WakeEntry implements Serializable {
 	}
 	public String getTriggerSsid() {
 		return triggerSsid;
+	}
+	public void setDeletedDate(Date deletedDate) {
+		this.deletedDate = deletedDate;
+	}
+	public Date getDeletedDate() {
+		return deletedDate;
 	}
 }

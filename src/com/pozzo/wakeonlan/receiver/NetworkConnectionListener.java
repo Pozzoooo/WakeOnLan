@@ -60,10 +60,17 @@ public class NetworkConnectionListener extends Service {
 	 * @param ctx
 	 * @return
 	 */
-	private String getNetworkSsid(Context ctx) {
+	public static String getNetworkSsid(Context ctx) {
 		WifiManager wifiMgr = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 		WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
-		return wifiInfo.getSSID();
+		String networkSsid = wifiInfo.getSSID();
+		//If it is a valid UTF8 name we handle it
+		if(networkSsid != null && networkSsid.endsWith("\"") 
+				&& networkSsid.startsWith("\"")) {
+			networkSsid = networkSsid.substring(1, networkSsid.length()-1);
+			return networkSsid;
+		}
+		return null;
 	}
 
 	/**
@@ -82,11 +89,6 @@ public class NetworkConnectionListener extends Service {
 	
 			if(!noConnectivity) {
 				networkSsid = getNetworkSsid(ctx);
-				//If it is a valid UTF8 name we handle it
-				if(networkSsid != null && networkSsid.endsWith("\"") 
-						&& networkSsid.startsWith("\"")) {
-					networkSsid = networkSsid.substring(1, networkSsid.length()-1);
-				}
 
 				Thread background = new Thread() {
 					public void run() {

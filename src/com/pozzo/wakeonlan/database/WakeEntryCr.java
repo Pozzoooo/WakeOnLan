@@ -1,5 +1,7 @@
 package com.pozzo.wakeonlan.database;
 
+import java.util.Date;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 
@@ -20,6 +22,7 @@ public class WakeEntryCr {
 	public static final String IP = "ip";
 	public static final String PORT = "port";
 	public static final String TRIGGER_SSID = "trigger";
+	public static final String DELETED_DATE = "deleted_date";
 
 	/**
 	 * Create Table SQL.
@@ -30,7 +33,8 @@ public class WakeEntryCr {
 			NAME + " varchar, " + 	
 			IP + " varchar not null, " +
 			PORT + " integer not null, " +
-			TRIGGER_SSID + " varchar" +
+			TRIGGER_SSID + " varchar, " +
+			DELETED_DATE + " bigint" +
 		");";
 
 	/**
@@ -47,6 +51,13 @@ public class WakeEntryCr {
 		values.put(PORT, entry.getPort());
 		values.put(TRIGGER_SSID, entry.getTriggerSsid());
 
+		//Special handle for deleted date
+		if(entry.getDeletedDate() != null) {
+			values.put(DELETED_DATE, entry.getDeletedDate().getTime());
+		} else {
+			values.putNull(DELETED_DATE);
+		}
+
 		return values;
 	}
 
@@ -62,6 +73,12 @@ public class WakeEntryCr {
 		entry.setIp(cursor.getString(cursor.getColumnIndex(IP)));
 		entry.setPort(cursor.getInt(cursor.getColumnIndex(PORT)));
 		entry.setTriggerSsid(cursor.getString(cursor.getColumnIndex(TRIGGER_SSID)));
+
+		//Special handle for deleted date
+		int idx = cursor.getColumnIndex(DELETED_DATE);
+		if(!cursor.isNull(idx)) {
+			entry.setDeletedDate(new Date(cursor.getLong(idx)));
+		}
 
 		return entry;
 	}

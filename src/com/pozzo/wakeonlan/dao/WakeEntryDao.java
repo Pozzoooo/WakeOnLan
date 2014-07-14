@@ -74,16 +74,46 @@ public class WakeEntryDao {
 	}
 
 	/**
-	 * Deletes all WakeEntry by ids.
+	 * It will recover deleted items which remains on database.
+	 * 
+	 * @param ids to be recovered.
+	 */
+	public void recover(long... ids) {
+		String idsStr = Arrays.toString(ids);
+		idsStr = idsStr.substring(1, idsStr.length()-1);
+		SQLiteDatabase db = new ConexaoDBManager().getDb();
+		db.execSQL("UPDATE " + WakeEntryCr.TB_NAME 
+				+ " SET " + WakeEntryCr.DELETED_DATE + " = NULL "
+				+ " WHERE " + WakeEntryCr._ID + " IN (" + idsStr + ")");
+	}
+
+	/**
+	 * Add a timestamp to field 'deleted_date'.
+	 * 
+	 * @param ids to be removed.
+	 * @return deleted date.
+	 */
+	public long delete(long... ids) {
+		String idsStr = Arrays.toString(ids);
+		idsStr = idsStr.substring(1, idsStr.length()-1);
+		SQLiteDatabase db = new ConexaoDBManager().getDb();
+		long now = System.currentTimeMillis();
+		db.execSQL("UPDATE " + WakeEntryCr.TB_NAME 
+				+ " SET " + WakeEntryCr.DELETED_DATE + " = " + now
+				+ " WHERE " + WakeEntryCr._ID + " IN (" + idsStr + ")");
+		return now;
+	}
+
+	/**
+	 * Deletes all WakeEntry by ids, this operations is IRREVERSIBLE.
 	 * 
 	 * @param ids to be removed.
 	 */
-	public void delete(long... ids) {
+	public void deleteForever(long... ids) {
 		String idsStr = Arrays.toString(ids);
 		idsStr = idsStr.substring(1, idsStr.length()-1);
 		SQLiteDatabase db = new ConexaoDBManager().getDb();
 		db.execSQL("DELETE FROM " + WakeEntryCr.TB_NAME + " WHERE " + 
 				WakeEntryCr._ID + " IN (" + idsStr + ")");
-		
 	}
 }

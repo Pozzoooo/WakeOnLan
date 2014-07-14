@@ -8,6 +8,7 @@ import android.content.Intent;
 
 import com.pozzo.wakeonlan.dao.WakeEntryDao;
 import com.pozzo.wakeonlan.helper.WakeOnLan;
+import com.pozzo.wakeonlan.receiver.BootReceiver;
 import com.pozzo.wakeonlan.receiver.NetworkConnectionListener;
 import com.pozzo.wakeonlan.vo.WakeEntry;
 
@@ -27,6 +28,7 @@ public class WakeBusiness {
 		new WakeEntryDao().replace(entry);
 		if(entry.getTriggerSsid() != null && entry.getTriggerSsid().length() > 0) {
 			context.startService(new Intent(context, NetworkConnectionListener.class));
+			BootReceiver.setEnabled(true, context);
 		}
 	}
 
@@ -38,6 +40,18 @@ public class WakeBusiness {
 	public void startNetworkService(Context context) {
 		if(getByTrigger("%").size() > 0) {
 			context.startService(new Intent(context, NetworkConnectionListener.class));
+		}
+	}
+
+	/**
+	 * Will stop service if not more triggers exists, also may disable boot request.
+	 * 
+	 * @param context to make it work.
+	 */
+	public void stopNetworkService(Context context) {
+		if(getByTrigger("%").isEmpty()) {
+			context.stopService(new Intent(context, NetworkConnectionListener.class));
+			BootReceiver.setEnabled(false, context);
 		}
 	}
 
@@ -85,5 +99,14 @@ public class WakeBusiness {
 	 */
 	public void delete(long... ids) {
 		new WakeEntryDao().delete(ids);
+	}
+
+	/**
+	 * Delete matching ids.
+	 * 
+	 * @param ids to be deleted.
+	 */
+	public void recover(long... ids) {
+		new WakeEntryDao().recover(ids);
 	}
 }

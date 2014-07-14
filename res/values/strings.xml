@@ -11,7 +11,11 @@
     <string name="close">Close</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="search">Search</string>
+    <string name="recover">Recover</string>
 
+    <string name="getCurrent">Get current network name</string>
+    <string name="deletedList">List deleted items</string>
     <string name="wakeSent">Package sent</string>
 
 <!--     Tutorial messages -->
@@ -19,9 +23,12 @@
     <string name="tutoWake">Just touch an entry to sent a new Magic Package</string>
     <string name="tutoEditWake">Use long touch for more options</string>
     <string name="tutoHelp">The question mark will help you with more information</string>
+
+<!--     Errors msg -->
     <string name="macNotValid">Given MAC is not valid, pleas review</string>
     <string name="ioSentError">Problem while sending message, are you connected?</string>
     <string name="valuesError">Error on evaluation, are your data correct?</string>
+    <string name="cantGetSsid">Could no get current ssid</string>
 
 <!--     Labels -->
     <string name="yourIp">Your IP</string>
