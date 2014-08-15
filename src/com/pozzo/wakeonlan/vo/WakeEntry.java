@@ -12,7 +12,7 @@ import java.util.Date;
 public class WakeEntry implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private long id;
+	private int id;
 	private String name;
 	private String macAddress;
 	private String ip;
@@ -20,10 +20,10 @@ public class WakeEntry implements Serializable {
 	private String triggerSsid;
 	private Date deletedDate;
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	public String getName() {

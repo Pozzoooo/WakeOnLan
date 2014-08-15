@@ -88,7 +88,7 @@ public class WakeBusiness {
 	 * @param id PK.
 	 * @return the Entry.
 	 */
-	public WakeEntry get(long id) {
+	public WakeEntry get(int id) {
 		return new WakeEntryDao().get(id);
 	}
 

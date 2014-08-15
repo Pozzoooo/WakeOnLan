@@ -5,13 +5,13 @@ import java.io.IOException;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,20 +19,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FilterQueryProvider;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.SearchView.OnQueryTextListener;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bugsense.trace.BugSenseHandler;
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.activity.AddWakeEntryActivity;
 import com.pozzo.wakeonlan.activity.MainActivity;
@@ -59,6 +55,7 @@ public class EntriesListFrag extends ListFragment
 	private ConexaoDBManager conexao;
 	private SQLiteDatabase loaderDb;
 	private boolean showDeleteds;
+	private String action;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -67,9 +64,14 @@ public class EntriesListFrag extends ListFragment
 		getLoaderManager().initLoader(1, null, this);
 
 		ListView listEntries = getListView();
-		listEntries.setOnItemClickListener(onItemClick);
-		listEntries.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-		listEntries.setMultiChoiceModeListener(multiChoice);
+		if(!AppWidgetManager.ACTION_APPWIDGET_CONFIGURE.equals(action)) {
+			listEntries.setOnItemClickListener(onSendWake);
+			listEntries.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+			listEntries.setMultiChoiceModeListener(multiChoice);
+		} else {
+			listEntries.setOnItemClickListener(onChioce);
+			listEntries.setChoiceMode(ListView.CHOICE_MODE_NONE);
+		}
 	}
 
 	@Override
@@ -85,6 +87,7 @@ public class EntriesListFrag extends ListFragment
 		super.onAttach(activity);
 
 		conexao = new ConexaoDBManager(activity);
+		action = activity.getIntent().getAction();
 
 		Bundle extras = activity.getIntent().getExtras();
 		if(extras != null)
@@ -94,7 +97,7 @@ public class EntriesListFrag extends ListFragment
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		//We maintain the connection during our Activity lifecycle
+		//We maintain the connection during our Activity lifecycle.
 		conexao.close();
 	}
 
@@ -128,7 +131,7 @@ public class EntriesListFrag extends ListFragment
 				//Not supposed to happen when more than one item selected, 
 				// but if so, we just pick the first and go on.
 				long[] ids = getListView().getCheckedItemIds();
-				edit(ids[0]);
+				edit((int) ids[0]);
 				break;
 
 			case R.id.mRecover:
@@ -173,7 +176,7 @@ public class EntriesListFrag extends ListFragment
 	 * 
 	 * @param itemId to be edited.
 	 */
-	private void edit(long itemId) {
+	private void edit(int itemId) {
 		WakeBusiness bus = new WakeBusiness();
 		WakeEntry entry = bus.get(itemId);
 		Intent intent = new Intent(getActivity(), AddWakeEntryActivity.class);
@@ -184,11 +187,31 @@ public class EntriesListFrag extends ListFragment
 	/**
 	 * Interaction with list.
 	 */
-	private OnItemClickListener onItemClick = new OnItemClickListener() {
+	private OnItemClickListener onSendWake = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			WakeEntry entry = (WakeEntry) getListAdapter().getItem(position);
 			wake(entry);
+		}
+	};
+
+	/**
+	 * Interaction with list.
+	 */
+	private OnItemClickListener onChioce = new OnItemClickListener() {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			WakeEntry entry = (WakeEntry) getListAdapter().getItem(position);
+
+			//TODO It usually is done at onAttach method, is this acceptable?
+			if(!(getActivity() instanceof MainActivity)) {
+				IllegalArgumentException bug = new IllegalArgumentException(
+							"Widget creationg bug, fragment attached in different activity!");
+				BugSenseHandler.sendException(bug);
+				throw bug;
+			}
+			MainActivity activity = (MainActivity) getActivity();
+			activity.widgetSelection(entry);
 		}
 	};
 
@@ -310,118 +333,4 @@ public class EntriesListFrag extends ListFragment
 					new String[] {query, query, query, query}, null, null, null);
 		}
 	};
-
-	/**
-	 * Animated tutorial to show function to users.
-	 * I preferred to base on times instead of triggers, just to let it cleaner.
-	 * This one is not really long, so I let it here inside the Frag, but I suggest to separate, 
-	 * 	you can use a <include> on layout and a isolated FrameLayout and even use a state machine
-	 * 	and animate with touches.
-	 * 
-	 * @param hasEntry If it has any entry on main list.
-	 */
-	public void animTutorial(boolean hasEntry) {
-		//Times
-		final int animShortTime = Integer.parseInt(getString(R.string.animShort));
-		final int readTime = Integer.parseInt(getString(R.string.readTime));
-		final float buttonMinSize = getResources().getDimension(R.dimen.minButtonSize);
-		final Handler uiHandler = new Handler();
-
-		//Load Componnets
-		final View contentView = getView();
-		final View vgTutorial = contentView.findViewById(R.id.vgTutorial);
-		final ImageView iArrow = (ImageView) contentView.findViewById(R.id.iFirstArrow);
-		final TextView lWelcome = (TextView) contentView.findViewById(R.id.lWelcome);
-		final TextView lTutoMessage = (TextView) contentView.findViewById(R.id.lTutoMessage);
-
-		//Animations - I use animations to beatification
-		final Animation animArrowIn = AnimationUtils.loadAnimation(getActivity(), R.anim.arrow_in);
-		final Animation animAppear = AnimationUtils.loadAnimation(getActivity(), R.anim.appear);
-		final Animation animDisappear = AnimationUtils
-				.loadAnimation(getActivity(), R.anim.disappear);
-
-		//I set to invisible to use theirs default locations, without changes.
-		vgTutorial.setVisibility(View.VISIBLE);
-		lWelcome.setVisibility(View.INVISIBLE);
-		iArrow.setVisibility(View.INVISIBLE);
-		lTutoMessage.setVisibility(View.INVISIBLE);
-
-		lWelcome.startAnimation(animAppear);
-
-		Runnable newEntry = new Runnable() {
-			public void run() {
-				lWelcome.startAnimation(animDisappear);
-				lTutoMessage.setText(R.string.tutoCreate);
-				lTutoMessage.setAnimation(animAppear);
-				RelativeLayout.LayoutParams params = 
-					(RelativeLayout.LayoutParams) iArrow.getLayoutParams();
-				params.addRule(RelativeLayout.CENTER_HORIZONTAL, 0);
-				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-				params.setMargins(0, 0, (int) (buttonMinSize + buttonMinSize/5 ), 0);
-				iArrow.requestLayout();
-				iArrow.startAnimation(animArrowIn);
-			}
-		};
-
-		Runnable cleanLastMessage = new Runnable() {
-			public void run() {
-				iArrow.setVisibility(View.INVISIBLE);
-				lTutoMessage.setAnimation(animDisappear);
-			}
-		};
-
-		Runnable wakeMessage = new Runnable() {
-			public void run() {
-				lTutoMessage.setText(R.string.tutoWake);
-				lTutoMessage.setAnimation(animAppear);
-				RelativeLayout.LayoutParams params = 
-						(RelativeLayout.LayoutParams) iArrow.getLayoutParams();
-				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
-				params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-				params.setMargins(0, (int) (buttonMinSize), 0, 0);
-				iArrow.requestLayout();
-				iArrow.startAnimation(animArrowIn);
-			}
-		};
-
-		Runnable editWake = new Runnable() {
-			public void run() {
-				lTutoMessage.setText(R.string.tutoEditWake);
-				lTutoMessage.setAnimation(animAppear);
-			}
-		};
-
-		Runnable help = new Runnable() {
-			public void run() {
-				lTutoMessage.setText(R.string.tutoHelp);
-				lTutoMessage.setAnimation(animAppear);
-				RelativeLayout.LayoutParams params = 
-					(RelativeLayout.LayoutParams) iArrow.getLayoutParams();
-				params.addRule(RelativeLayout.CENTER_HORIZONTAL, 0);
-				params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-				params.setMargins(0, 0, 0, 0);
-				iArrow.requestLayout();
-				iArrow.startAnimation(animArrowIn);
-			}
-		};
-
-		Runnable hideTutorial = new Runnable() {
-			public void run() {
-				vgTutorial.setVisibility(View.GONE);
-			}
-		};
-
-		int playTime = animShortTime * 3;
-		uiHandler.postDelayed(newEntry, playTime);
-		uiHandler.postDelayed(cleanLastMessage, playTime += readTime);
-
-		if(hasEntry) {
-			uiHandler.postDelayed(wakeMessage, playTime += animShortTime);
-			uiHandler.postDelayed(editWake, playTime += readTime);
-			uiHandler.postDelayed(cleanLastMessage, playTime += readTime);
-		}
-		uiHandler.postDelayed(help, playTime += animShortTime);
-
-		uiHandler.postDelayed(hideTutorial, playTime += readTime * 3);
-	}
 }

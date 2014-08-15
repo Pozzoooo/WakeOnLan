@@ -1,0 +1,132 @@
+package com.pozzo.wakeonlan.receiver;
+
+import java.io.IOException;
+import java.util.List;
+
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProvider;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.widget.RemoteViews;
+import android.widget.Toast;
+
+import com.pozzo.wakeonlan.R;
+import com.pozzo.wakeonlan.business.WakeBusiness;
+import com.pozzo.wakeonlan.business.WidgetControlBusiness;
+import com.pozzo.wakeonlan.vo.WakeEntry;
+
+/**
+ * This is our widget provider, all widgets events and updates should be handled here.
+ * 
+ * @see xml/gong_widget.xml
+ * @author Luiz Gustavo Pozzo
+ * @since 2014-08-06
+ */
+public class GongWidget extends AppWidgetProvider {
+	private static final String ACTION = "com.pozzo.wakeonlan.WIDGET_ACTION";
+	private static final String ID = "id";
+
+	@Override
+	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+		WidgetControlBusiness bus = new WidgetControlBusiness();
+		WakeBusiness wakeBus = new WakeBusiness();
+
+		for (int it : appWidgetIds) {
+			WakeEntry entry = null;
+			List<Integer> entriesIds = bus.getWakeEntriesFromWidget(it);
+			if(!entriesIds.isEmpty()) {
+				//We take only the first one for naming purpouse
+				entry = wakeBus.get(entriesIds.get(0));
+			}
+
+			updateWidget(it, entry, context);
+		}
+	}
+
+	/**
+	 * Centered widget updater.
+	 * 
+	 * @param widgetId Id from widget to be updated.
+	 * @param entry attached to the widget.
+	 * @param context Current context.
+	 */
+	public static void updateWidget(int widgetId, WakeEntry entry, Context context) {
+		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+		RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.gong_widget);
+		Intent intent = new Intent(context, GongWidget.class);
+		intent.setAction(GongWidget.ACTION);
+		intent.putExtra(GongWidget.ID, widgetId);
+		PendingIntent pendingIntent = 
+			PendingIntent.getBroadcast(context, widgetId, intent, 0);
+		if(entry != null)
+			remoteView.setTextViewText(R.id.lTitle, entry.getName());
+		remoteView.setOnClickPendingIntent(R.id.bWidget, pendingIntent);
+		appWidgetManager.updateAppWidget(widgetId, remoteView);
+	}
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		if(intent.getAction().equals(ACTION)) {
+			int widgetId = intent.getExtras().getInt(ID);
+			List<Integer> wakeEntryIds = 
+				new WidgetControlBusiness().getWakeEntriesFromWidget(widgetId);
+			new Wake(context).execute(wakeEntryIds.toArray(new Integer[0]));
+		} else {
+			super.onReceive(context, intent);
+		}
+	}
+
+	/**
+	 * Executes for us in background posting success updates.
+	 */
+	class Wake extends AsyncTask<Integer, String, String> {
+		private Context context;
+
+		/**
+		 * @param context is used for feedback.
+		 */
+		private Wake(Context context) {
+			this.context = context;
+		}
+
+		@Override
+		protected String doInBackground(Integer... params) {
+			try {
+				WakeBusiness wakeBus = new WakeBusiness();
+				WakeEntry entry;
+				for(Integer it : params) {
+					entry = wakeBus.get(it);
+					wakeBus.wakeUp(entry);
+					publishProgress(entry.getName());
+				}
+			} catch (IOException e) {
+				return context.getString(R.string.ioSentError);
+			}
+			return null;
+		}
+
+		@Override
+		protected void onProgressUpdate(String... values) {
+			Toast.makeText(context, values[0], Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			if(result != null)
+				Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	@Override
+	public void onDeleted(Context context, int[] appWidgetIds) {
+		new WidgetControlBusiness().delete(appWidgetIds);
+	}
+
+	@Override
+	public void onDisabled(Context context) {
+		//We clear our database to make sure we have no leak
+		new WidgetControlBusiness().deleteAll();
+	}
+}

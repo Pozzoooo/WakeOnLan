@@ -13,16 +13,16 @@
         android:showAsAction="always"
         android:title="@string/add"/>
     <item
-        android:id="@+id/help"
-        android:icon="@drawable/ic_action_help"
-        android:onClick="onHelp"
-        android:showAsAction="ifRoom"
-        android:title="@string/help"/>
-    <item
         android:id="@+id/showDeletedList"
         android:icon="@drawable/ic_action_unread"
         android:onClick="onShowDeletedList"
         android:showAsAction="never"
         android:title="@string/deletedList"/>
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/ic_action_help"
+        android:onClick="onHelp"
+        android:showAsAction="never"
+        android:title="@string/help"/>
 
 </menu>

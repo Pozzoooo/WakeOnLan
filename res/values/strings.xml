@@ -13,6 +13,7 @@
     <string name="edit">Edit</string>
     <string name="search">Search</string>
     <string name="recover">Recover</string>
+    <string name="gong">Gong</string>
 
     <string name="getCurrent">Get current network name</string>
     <string name="deletedList">List deleted items</string>

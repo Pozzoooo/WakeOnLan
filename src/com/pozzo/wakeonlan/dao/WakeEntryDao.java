@@ -44,7 +44,7 @@ public class WakeEntryDao {
 	 * @param id PK.
 	 * @return the Entry.
 	 */
-	public WakeEntry get(long id) {
+	public WakeEntry get(int id) {
 		WakeEntry entry = null;
 		SQLiteDatabase db = new ConexaoDBManager().getDb();
 		Cursor cursor = db.query(WakeEntryCr.TB_NAME, null, WakeEntryCr._ID + "=?", 

@@ -67,7 +67,7 @@ public class WakeEntryCr {
 	public static WakeEntry objectFrom(Cursor cursor) {
 		WakeEntry entry = new WakeEntry();
 
-		entry.setId(cursor.getLong(cursor.getColumnIndex(_ID)));
+		entry.setId(cursor.getInt(cursor.getColumnIndex(_ID)));
 		entry.setMacAddress(cursor.getString(cursor.getColumnIndex(MAC_ADDRESS)));
 		entry.setName(cursor.getString(cursor.getColumnIndex(NAME)));
 		entry.setIp(cursor.getString(cursor.getColumnIndex(IP)));
