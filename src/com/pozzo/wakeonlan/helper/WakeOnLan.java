@@ -6,6 +6,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.Locale;
 
+import com.pozzo.wakeonlan.exception.InvalidMac;
+
 /**
  * Here the magic happens, this is why our app exists.
  * 
@@ -21,23 +23,29 @@ public class WakeOnLan {
 	 * @param macStr Machine's Mac address. (the one which will wake up).
 	 * @throws IOException Ops.
 	 */
-	public void wakeUp(final String addres, String macStr, int port) throws IOException {
+	public void wakeUp(final String addres, String macStr, int port) 
+			throws IOException, InvalidMac {
 		//Firstly I ignore any non desirable character, like : and -.
 		macStr = macStr.toUpperCase(Locale.US);
 		macStr = macStr.replaceAll("[^0-9A-F]", "");
 
 		//Some times I prefer the 'clear' hard-code than a small for.
-		int i=0;
-		final byte[] mac = new byte[] {
-				(byte) Integer.parseInt(macStr.substring(i, i+=2), 16), 
-				(byte) Integer.parseInt(macStr.substring(i, i+=2), 16), 
-				(byte) Integer.parseInt(macStr.substring(i, i+=2), 16), 
-				(byte) Integer.parseInt(macStr.substring(i, i+=2), 16), 
-				(byte) Integer.parseInt(macStr.substring(i, i+=2), 16), 
-				(byte) Integer.parseInt(macStr.substring(i, i+=2), 16)
-				};
+		try {
+			int i=0;
+			final byte[] mac = new byte[] {
+					(byte) Integer.parseInt(macStr.substring(i, i+=2), 16), 
+					(byte) Integer.parseInt(macStr.substring(i, i+=2), 16), 
+					(byte) Integer.parseInt(macStr.substring(i, i+=2), 16), 
+					(byte) Integer.parseInt(macStr.substring(i, i+=2), 16), 
+					(byte) Integer.parseInt(macStr.substring(i, i+=2), 16), 
+					(byte) Integer.parseInt(macStr.substring(i, i+=2), 16)
+					};
 
-		wakeUp(mac, addres, port);
+			wakeUp(mac, addres, port);
+		} catch (StringIndexOutOfBoundsException e) {
+			//We convert the error to make it more clear.
+			throw new InvalidMac();
+		}
 	}
 
 	/**

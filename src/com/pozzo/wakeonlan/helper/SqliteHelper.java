@@ -1,6 +1,7 @@
 package com.pozzo.wakeonlan.helper;
 
 import com.bugsense.trace.BugSenseHandler;
+import com.pozzo.wakeonlan.database.LogCr;
 import com.pozzo.wakeonlan.database.WakeEntryCr;
 import com.pozzo.wakeonlan.database.WidgetControlCr;
 
@@ -15,7 +16,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * @since 2014-05-03
  */
 public class SqliteHelper extends SQLiteOpenHelper {
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 	private static final String DB_NAME = "db.db";
 
 	public SqliteHelper(Context context) {
@@ -30,6 +31,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 		try {
 			db.execSQL(WakeEntryCr.TB_CREATE);
 			db.execSQL(WidgetControlCr.TB_CREATE);
+			db.execSQL(LogCr.TB_CREATE);
 		} catch(RuntimeException e) {
 			//Some devices seems to call it more than once, I need to check why!
 			BugSenseHandler.sendException(e);
@@ -47,6 +49,10 @@ public class SqliteHelper extends SQLiteOpenHelper {
 					+ WakeEntryCr.DELETED_DATE + " bigint;");
 		case 2:
 			db.execSQL(WidgetControlCr.TB_CREATE);
+		case 3:
+			db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " ADD COLUMN " 
+					+ WakeEntryCr.LAST_WOL_SENT_DATE + " bigint;");
+			db.execSQL(LogCr.TB_CREATE);
 		default:
 			break;
 		}

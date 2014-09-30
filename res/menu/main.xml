@@ -19,6 +19,11 @@
         android:showAsAction="never"
         android:title="@string/deletedList"/>
     <item
+        android:id="@+id/showLogList"
+        android:onClick="onShowLogList"
+        android:showAsAction="never"
+        android:title="@string/logList"/>
+    <item
         android:id="@+id/help"
         android:icon="@drawable/ic_action_help"
         android:onClick="onHelp"

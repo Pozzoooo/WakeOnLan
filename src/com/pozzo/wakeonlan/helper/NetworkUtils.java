@@ -10,6 +10,10 @@ import java.util.Locale;
 
 import org.apache.http.conn.util.InetAddressUtils;
 
+import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+
 /**
  * Some useful netowrk methods. 
  * 
@@ -61,6 +65,25 @@ public class NetworkUtils {
 					return addr;
 				}
 			}
+		}
+		return null;
+	}
+
+	/**
+	 * Get the current connected network name.
+	 * 
+	 * @param context needed to request info.
+	 * @return Current connected network SSID or null if not connected.
+	 */
+	public static String getNetworkSsid(Context context) {
+		WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+		WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+		String networkSsid = wifiInfo.getSSID();
+		//If it is a valid UTF8 name we handle it
+		if(networkSsid != null && networkSsid.endsWith("\"") 
+				&& networkSsid.startsWith("\"")) {
+			networkSsid = networkSsid.substring(1, networkSsid.length()-1);
+			return networkSsid;
 		}
 		return null;
 	}

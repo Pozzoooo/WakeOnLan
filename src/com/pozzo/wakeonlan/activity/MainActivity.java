@@ -1,5 +1,6 @@
 package com.pozzo.wakeonlan.activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
@@ -55,6 +56,11 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 		Bundle extras = getIntent().getExtras();
 		if(extras != null)
 			showDeleteds = extras.getBoolean(MainActivity.PARAM_SHOW_DELETEDS);
+
+		if(showDeleteds) {
+			ActionBar actionBar = getActionBar();
+			actionBar.setDisplayHomeAsUpEnabled(true);
+		}
 	}
 
 	@Override
@@ -73,6 +79,17 @@ public class MainActivity extends Activity implements OnQueryTextListener {
         searchView.setOnQueryTextListener(this);
 
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			onBackPressed();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	/**
@@ -98,6 +115,14 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.putExtra(PARAM_SHOW_DELETEDS, true);
 		startActivityForResult(intent, REQ_DEL);
+	}
+
+	/**
+	 * Event to show the log list.
+	 */
+	public void onShowLogList(MenuItem item) {
+		Intent intent = new Intent(this, LogListActivity.class);
+		startActivity(intent);
 	}
 
 	@Override

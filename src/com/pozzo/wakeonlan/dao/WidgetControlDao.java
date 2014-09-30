@@ -23,9 +23,9 @@ public class WidgetControlDao {
 	 * @param widgetId to be attached.
 	 * @param wakeEntryId which should be attached to the widget.
 	 */
-	public void insert(int widgetId, int ...wakeEntryId) {
+	public void insert(int widgetId, long ...wakeEntryId) {
 		SQLiteDatabase db = new ConexaoDBManager().getDb();
-		for(int it : wakeEntryId)
+		for(long it : wakeEntryId)
 			db.insert(WidgetControlCr.TB_NAME, null, 
 					WidgetControlCr.getContentValues(widgetId, it));
 	}
@@ -65,14 +65,14 @@ public class WidgetControlDao {
 	 * @param widgetId related.
 	 * @return WakeEntry ids.
 	 */
-	public List<Integer> getWakeEntriesFromWidget(int widgetId) {
+	public List<Long> getWakeEntriesFromWidget(int widgetId) {
 		SQLiteDatabase db = new ConexaoDBManager().getDb();
 		Cursor cursor = db.query(WidgetControlCr.TB_NAME, new String[] {WidgetControlCr.WAKE_ENTRY}, 
 				WidgetControlCr.WIDGET_ID + "=?", new String[] {""+widgetId}, null, null, null);
-		List<Integer> ids = new ArrayList<Integer>();
+		List<Long> ids = new ArrayList<Long>();
 
 		while(cursor.moveToNext()) {
-			ids.add(cursor.getInt(0));
+			ids.add(cursor.getLong(0));
 		}
 
 		return ids;

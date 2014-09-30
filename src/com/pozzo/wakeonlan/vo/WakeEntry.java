@@ -12,18 +12,19 @@ import java.util.Date;
 public class WakeEntry implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int id;
+	private long id;
 	private String name;
 	private String macAddress;
 	private String ip;
 	private int port;
 	private String triggerSsid;
 	private Date deletedDate;
+	private Date lastWolSentDate;
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	public String getName() {
@@ -61,5 +62,11 @@ public class WakeEntry implements Serializable {
 	}
 	public Date getDeletedDate() {
 		return deletedDate;
+	}
+	public void setLastWolSentDate(Date lastWolSentDate) {
+		this.lastWolSentDate = lastWolSentDate;
+	}
+	public Date getLastWolSentDate() {
+		return lastWolSentDate;
 	}
 }

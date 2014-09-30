@@ -23,6 +23,8 @@ public class WakeEntryCr {
 	public static final String PORT = "port";
 	public static final String TRIGGER_SSID = "trigger";
 	public static final String DELETED_DATE = "deleted_date";
+	//I was in doubt about FK, denormalization or just querying when needed.
+	public static final String LAST_WOL_SENT_DATE = "last_wol_sent_date";
 
 	/**
 	 * Create Table SQL.
@@ -34,7 +36,8 @@ public class WakeEntryCr {
 			IP + " varchar not null, " +
 			PORT + " integer not null, " +
 			TRIGGER_SSID + " varchar, " +
-			DELETED_DATE + " bigint" +
+			DELETED_DATE + " bigint, " +
+			LAST_WOL_SENT_DATE + " bigint" +
 		");";
 
 	/**
@@ -51,12 +54,15 @@ public class WakeEntryCr {
 		values.put(PORT, entry.getPort());
 		values.put(TRIGGER_SSID, entry.getTriggerSsid());
 
-		//Special handle for deleted date
-		if(entry.getDeletedDate() != null) {
+		//Special handle for deleted date.
+		if(entry.getDeletedDate() != null)
 			values.put(DELETED_DATE, entry.getDeletedDate().getTime());
-		} else {
+		else//If recycled I set it null.
 			values.putNull(DELETED_DATE);
-		}
+
+		//Only updates last sent when defined.
+		if(entry.getLastWolSentDate() != null)
+			values.put(LAST_WOL_SENT_DATE, entry.getLastWolSentDate().getTime());
 
 		return values;
 	}
@@ -74,11 +80,14 @@ public class WakeEntryCr {
 		entry.setPort(cursor.getInt(cursor.getColumnIndex(PORT)));
 		entry.setTriggerSsid(cursor.getString(cursor.getColumnIndex(TRIGGER_SSID)));
 
-		//Special handle for deleted date
+		//Special handle for nullable fields.
 		int idx = cursor.getColumnIndex(DELETED_DATE);
-		if(!cursor.isNull(idx)) {
+		if(!cursor.isNull(idx))
 			entry.setDeletedDate(new Date(cursor.getLong(idx)));
-		}
+
+		idx = cursor.getColumnIndex(LAST_WOL_SENT_DATE);
+		if(!cursor.isNull(idx))
+			entry.setLastWolSentDate(new Date(cursor.getLong(idx)));
 
 		return entry;
 	}

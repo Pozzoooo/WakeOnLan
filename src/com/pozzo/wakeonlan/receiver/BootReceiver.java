@@ -28,7 +28,7 @@ public class BootReceiver extends BroadcastReceiver {
 	 * @param enabled To be set.
 	 * @param context needed to changes.
 	 */
-	public static void setEnabled(boolean enabled, Context context) {
+	public static void startListening(boolean enabled, Context context) {
 		ComponentName receiver = new ComponentName(context, BootReceiver.class);
 		PackageManager pm = context.getPackageManager();
 

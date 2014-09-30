@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.bugsense.trace.BugSenseHandler;
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.helper.NetworkUtils;
-import com.pozzo.wakeonlan.receiver.NetworkConnectionListener;
 import com.pozzo.wakeonlan.vo.WakeEntry;
 
 /**
@@ -98,7 +97,7 @@ public class WakeEntryFrag extends Fragment {
 		
 		@Override
 		public void onClick(View v) {
-			String ssid = NetworkConnectionListener.getNetworkSsid(getActivity());
+			String ssid = NetworkUtils.getNetworkSsid(getActivity());
 			if(ssid == null || ssid.length() < 1) {
 				Toast.makeText(getActivity(), R.string.cantGetSsid, Toast.LENGTH_LONG).show();
 			} else

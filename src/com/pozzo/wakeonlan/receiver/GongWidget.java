@@ -15,7 +15,11 @@ import android.widget.Toast;
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.business.WakeBusiness;
 import com.pozzo.wakeonlan.business.WidgetControlBusiness;
+import com.pozzo.wakeonlan.exception.InvalidMac;
+import com.pozzo.wakeonlan.vo.LogObj;
 import com.pozzo.wakeonlan.vo.WakeEntry;
+import com.pozzo.wakeonlan.vo.LogObj.Action;
+import com.pozzo.wakeonlan.vo.LogObj.How;
 
 /**
  * This is our widget provider, all widgets events and updates should be handled here.
@@ -35,7 +39,7 @@ public class GongWidget extends AppWidgetProvider {
 
 		for (int it : appWidgetIds) {
 			WakeEntry entry = null;
-			List<Integer> entriesIds = bus.getWakeEntriesFromWidget(it);
+			List<Long> entriesIds = bus.getWakeEntriesFromWidget(it);
 			if(!entriesIds.isEmpty()) {
 				//We take only the first one for naming purpouse
 				entry = wakeBus.get(entriesIds.get(0));
@@ -70,9 +74,9 @@ public class GongWidget extends AppWidgetProvider {
 	public void onReceive(Context context, Intent intent) {
 		if(intent.getAction().equals(ACTION)) {
 			int widgetId = intent.getExtras().getInt(ID);
-			List<Integer> wakeEntryIds = 
+			List<Long> wakeEntryIds = 
 				new WidgetControlBusiness().getWakeEntriesFromWidget(widgetId);
-			new Wake(context).execute(wakeEntryIds.toArray(new Integer[0]));
+			new Wake(context).execute(wakeEntryIds.toArray(new Long[0]));
 		} else {
 			super.onReceive(context, intent);
 		}
@@ -81,7 +85,7 @@ public class GongWidget extends AppWidgetProvider {
 	/**
 	 * Executes for us in background posting success updates.
 	 */
-	class Wake extends AsyncTask<Integer, String, String> {
+	class Wake extends AsyncTask<Long, String, String> {
 		private Context context;
 
 		/**
@@ -92,24 +96,29 @@ public class GongWidget extends AppWidgetProvider {
 		}
 
 		@Override
-		protected String doInBackground(Integer... params) {
+		protected String doInBackground(Long... params) {
 			try {
 				WakeBusiness wakeBus = new WakeBusiness();
 				WakeEntry entry;
-				for(Integer it : params) {
+				LogObj log;
+				for(Long it : params) {
 					entry = wakeBus.get(it);
-					wakeBus.wakeUp(entry);
+					log = new LogObj(How.widgetHome, it.longValue(), Action.sent);
+					wakeBus.wakeUp(entry, log);
 					publishProgress(entry.getName());
 				}
 			} catch (IOException e) {
 				return context.getString(R.string.ioSentError);
+			} catch (InvalidMac e) {
+				return context.getString(R.string.valuesError);
 			}
 			return null;
 		}
 
 		@Override
 		protected void onProgressUpdate(String... values) {
-			Toast.makeText(context, values[0], Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, context.getString(R.string.wakeSentTo) + values[0], 
+					Toast.LENGTH_SHORT).show();
 		}
 
 		@Override

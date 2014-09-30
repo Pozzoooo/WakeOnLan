@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pozzo.wakeonlan"
-    android:versionCode="4"
-    android:versionName="1.3" >
+    android:versionCode="5"
+    android:versionName="1.4" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -33,10 +33,19 @@
             android:name=".activity.AddWakeEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" >
         </activity>
+        <activity 
+            android:name=".activity.LogListActivity"
+            android:label="@string/logList">
+        </activity>
 
-        <service android:name=".receiver.NetworkConnectionListener" >
-        </service>
-
+		<receiver 
+		    android:name=".receiver.NetworkConnectionReceiver"
+		    android:enabled="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" >
+                </action>
+            </intent-filter>
+		</receiver>
         <receiver
             android:name=".receiver.BootReceiver"
             android:enabled="false" >

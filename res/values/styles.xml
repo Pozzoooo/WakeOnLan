@@ -37,4 +37,8 @@
     <style name="rowLabel">
         <item name="android:textSize">20sp</item>
     </style>
+
+    <style name="row">
+        <item name="android:padding">@dimen/shortMargin</item>
+    </style>
 </resources>

@@ -36,9 +36,13 @@ import com.pozzo.wakeonlan.adapter.WakeListAdapter;
 import com.pozzo.wakeonlan.business.WakeBusiness;
 import com.pozzo.wakeonlan.database.ConexaoDBManager;
 import com.pozzo.wakeonlan.database.WakeEntryCr;
+import com.pozzo.wakeonlan.exception.InvalidMac;
 import com.pozzo.wakeonlan.listener.SwipeDismissListViewTouchListener;
 import com.pozzo.wakeonlan.loder.SimpleCursorLoader;
+import com.pozzo.wakeonlan.vo.LogObj;
 import com.pozzo.wakeonlan.vo.WakeEntry;
+import com.pozzo.wakeonlan.vo.LogObj.Action;
+import com.pozzo.wakeonlan.vo.LogObj.How;
 
 /**
  * Shows and manage Entry lists.
@@ -159,12 +163,12 @@ public class EntriesListFrag extends ListFragment
 	 * Remove all checked items on ListView.
 	 */
 	private void deleteCheckedItems(long... ids) {
-		new WakeBusiness().delete(ids);
+		new WakeBusiness().trash(ids);
 		refresh();
 	}
 
 	/**
-	 * Remove all checked items on ListView.
+	 * Recover deleted items back to normal lits.
 	 */
 	private void recoverCheckedItems(long... ids) {
 		new WakeBusiness().recover(ids);
@@ -224,10 +228,11 @@ public class EntriesListFrag extends ListFragment
 			@Override
 			protected Integer doInBackground(Void... params) {
 				try {
-					new WakeBusiness().wakeUp(entry);
+					LogObj log = new LogObj(How.defaul, entry.getId(), Action.sent);
+					new WakeBusiness().wakeUp(entry, log);
 				} catch (IOException e) {
 					return R.string.ioSentError;
-				} catch (RuntimeException e) {
+				} catch (InvalidMac e) {
 					return R.string.valuesError;
 				}
 				return null;
@@ -235,7 +240,8 @@ public class EntriesListFrag extends ListFragment
 
 			protected void onPostExecute(Integer result) {
 				if(result == null)
-					Toast.makeText(getActivity(), R.string.wakeSent, Toast.LENGTH_LONG).show();
+					Toast.makeText(getActivity(), getString(R.string.wakeSentTo) + entry.getName(), 
+							Toast.LENGTH_LONG).show();
 				else
 					Toast.makeText(getActivity(), getString(result), Toast.LENGTH_LONG).show();
 			}
@@ -295,7 +301,7 @@ public class EntriesListFrag extends ListFragment
                         		WakeBusiness bus = new WakeBusiness();
                         		WakeListAdapter adapter = (WakeListAdapter) getListAdapter();
                         		for(int it : reverseSortedPositions) {
-                        			bus.delete(adapter.getItem(it).getId());
+                        			bus.trash(adapter.getItem(it).getId());
                         		}
                         		return null;
                         	}

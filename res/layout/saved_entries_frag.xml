@@ -8,47 +8,4 @@
 	    android:id="@android:id/list"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent" />
-
-	<LinearLayout 
-	    android:id="@+id/vgTutorial"
-	    android:layout_margin="@dimen/shortMargin"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:layout_marginTop="20dp"
-	    android:visibility="gone"
-	    android:orientation="vertical" >
-
-	    <RelativeLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="150dp" >
-
-		    <ImageView
-		        android:id="@+id/iFirstArrow"
-		        android:layout_width="80dp"
-		        android:layout_height="match_parent"
-		        android:scaleType="fitXY"
-		        android:layout_alignParentRight="true"
-		        android:contentDescription="@string/arrow"
-		        android:src="@drawable/arrow" />
-
-			<com.pozzo.wakeonlan.components.TextViewFont
-			    android:id="@+id/lWelcome" 
-			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content"
-			    style="@style/textViewTutorial"
-			    android:layout_alignParentBottom="true"
-			    android:textSize="30sp"
-			    android:gravity="right"
-			    android:text="@string/welcome" />
-	    </RelativeLayout>
-
-		<com.pozzo.wakeonlan.components.TextViewFont
-		    android:id="@+id/lTutoMessage"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-			style="@style/textViewTutorial"
-		    android:textSize="20sp"
-		    android:gravity="right"
-		    android:text="@string/tutoCreate" />
-	</LinearLayout>
 </FrameLayout>

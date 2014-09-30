@@ -30,7 +30,7 @@ public class WidgetControlCr {
 	 * 
 	 * @return Which should be persisted at widgetControl table.
 	 */
-	public static ContentValues getContentValues(int widgetId, int wakeEntryId) {
+	public static ContentValues getContentValues(int widgetId, long wakeEntryId) {
 		ContentValues values = new ContentValues();
 
 		values.put(WIDGET_ID, widgetId);

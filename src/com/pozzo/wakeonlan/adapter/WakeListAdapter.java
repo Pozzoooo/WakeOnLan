@@ -1,16 +1,18 @@
 package com.pozzo.wakeonlan.adapter;
 
-import com.pozzo.wakeonlan.R;
-import com.pozzo.wakeonlan.database.WakeEntryCr;
-import com.pozzo.wakeonlan.vo.WakeEntry;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.pozzo.wakeonlan.R;
+import com.pozzo.wakeonlan.database.WakeEntryCr;
+import com.pozzo.wakeonlan.helper.NetworkUtils;
+import com.pozzo.wakeonlan.vo.WakeEntry;
 
 /**
  * How we will show our entry list.
@@ -21,15 +23,18 @@ import android.widget.TextView;
 public class WakeListAdapter extends CursorAdapter {
 	private final String PORT_SEPARATOR = ":";
 	private LayoutInflater inflater;
+	private String curentNetwork;
 
 	public WakeListAdapter(Context context, Cursor c, int flags) {
 		super(context, c, flags);
 		inflater = LayoutInflater.from(context);
+		//TODO refresh when reconnected or disconnected.
+		curentNetwork = NetworkUtils.getNetworkSsid(context);
 	}
 
 	@Override
 	public View newView(Context context, Cursor cursor, ViewGroup parent) {
-		View line = inflater.inflate(R.layout.wake_entry, parent, false);
+		View line = inflater.inflate(R.layout.wake_entry_row, parent, false);
 		return line;
 	}
 
@@ -40,10 +45,22 @@ public class WakeListAdapter extends CursorAdapter {
 		TextView lAddr = (TextView) view.findViewById(R.id.lAddr);
 		TextView lMacAddr = (TextView) view.findViewById(R.id.lMacAddr);
 		TextView lName = (TextView) view.findViewById(R.id.lName);
+		ImageView iTrigger = (ImageView) view.findViewById(R.id.iTrigger);
 
 		lAddr.setText(entry.getIp() + PORT_SEPARATOR + entry.getPort());
 		lMacAddr.setText(entry.getMacAddress());
 		lName.setText(entry.getName());
+
+		//if has trigger, show icon, if trigger is the same current network show active icon.
+		int icon = 0;//This is not the fastest way to do it, but it looks cleaner to me.
+		if(entry.getTriggerSsid() != null && !entry.getTriggerSsid().isEmpty()) {
+			iTrigger.setVisibility(View.VISIBLE);
+			icon = entry.getTriggerSsid().equals(curentNetwork) 
+					? R.drawable.ic_action_network_wifi_on : R.drawable.ic_action_network_wifi;
+			iTrigger.setImageResource(icon);
+		} else {
+			iTrigger.setVisibility(View.INVISIBLE);
+		}
 	}
 
 	@Override

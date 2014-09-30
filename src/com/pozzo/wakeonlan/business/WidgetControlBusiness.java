@@ -4,7 +4,10 @@ import java.util.List;
 
 import com.bugsense.trace.BugSenseHandler;
 import com.pozzo.wakeonlan.dao.WidgetControlDao;
+import com.pozzo.wakeonlan.vo.LogObj;
 import com.pozzo.wakeonlan.vo.WakeEntry;
+import com.pozzo.wakeonlan.vo.LogObj.Action;
+import com.pozzo.wakeonlan.vo.LogObj.How;
 
 /**
  * Business logic for Widget control.
@@ -21,11 +24,16 @@ public class WidgetControlBusiness {
 	 * @param wakeEntryId related to the given widget.
 	 */
 	public void insert(int widgetId, WakeEntry ...wakeEntries) {
-		int[] ids = new int[wakeEntries.length];
+		long[] ids = new long[wakeEntries.length];
 		for(int i=0; i<wakeEntries.length; ++i)
 			ids[i] = wakeEntries[i].getId();
 
 		new WidgetControlDao().insert(widgetId, ids);
+
+		//And than log it pleas.
+		for(WakeEntry it : wakeEntries)
+			new LogBusiness().insert(//I do save widget id as description, just for reference.
+					new LogObj(How.widgetHome, ""+widgetId, it.getId(), Action.newHomeWidget));
 	}
 
 	/**
@@ -58,7 +66,7 @@ public class WidgetControlBusiness {
 	 * @param widgetId related.
 	 * @return WakeEntry ids.
 	 */
-	public List<Integer> getWakeEntriesFromWidget(int widgetId) {
+	public List<Long> getWakeEntriesFromWidget(int widgetId) {
 		return new WidgetControlDao().getWakeEntriesFromWidget(widgetId);
 	}
 }
