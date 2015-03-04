@@ -16,7 +16,7 @@ public class App extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		BugSenseHandler.initAndStartSession(this, "22c71818");
+//		BugSenseHandler.initAndStartSession(this, "22c71818");
 
 		appContext = this;
 	}

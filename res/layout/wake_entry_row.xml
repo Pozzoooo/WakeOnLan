@@ -14,6 +14,26 @@
         android:text="@string/example"
         style="@style/rowLabel" />
 
+    <TextView 
+        android:id="@+id/lLastSent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/lWolCount"
+        android:layout_toRightOf="@id/lName"
+        android:gravity="right"
+        android:text="@string/example"
+        style="@style/rowLabel" />
+
+    <TextView
+        android:id="@id/lWolCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/shortMargin"
+        android:layout_marginRight="@dimen/shortMargin"
+        android:layout_alignParentRight="true"
+        android:text="@string/example"
+        style="@style/rowLabel" />
+
     <TextView
         android:id="@+id/lMacAddr"
         android:layout_width="wrap_content"

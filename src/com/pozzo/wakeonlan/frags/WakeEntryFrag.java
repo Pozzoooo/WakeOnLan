@@ -122,9 +122,15 @@ public class WakeEntryFrag extends Fragment {
 
 		entry.setMacAddress(eMac.getText().toString());
 		entry.setIp(eIp.getText().toString());
-		entry.setPort(Integer.parseInt(ePort.getText().toString()));
 		entry.setName(eName.getText().toString());
 		entry.setTriggerSsid(eTrigger.getText().toString());
+
+		try {
+			entry.setPort(Integer.parseInt(ePort.getText().toString()));
+		} catch(NumberFormatException e) {
+			//If user insist to remove port, we let it default as 9
+			entry.setPort(NetworkUtils.getDefaultWakePort());
+		}
 	}
 
 	private Drawable defBackground;

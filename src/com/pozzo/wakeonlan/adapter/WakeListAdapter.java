@@ -1,5 +1,9 @@
 package com.pozzo.wakeonlan.adapter;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
@@ -25,11 +29,20 @@ public class WakeListAdapter extends CursorAdapter {
 	private LayoutInflater inflater;
 	private String curentNetwork;
 
+	//For date
+	private DateFormat formatterDate;
+	private DateFormat formatterTime;
+	private Date before20;//20 hours before now
+
 	public WakeListAdapter(Context context, Cursor c, int flags) {
 		super(context, c, flags);
 		inflater = LayoutInflater.from(context);
 		//TODO refresh when reconnected or disconnected.
 		curentNetwork = NetworkUtils.getNetworkSsid(context);
+
+		formatterDate = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
+		formatterTime = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault());
+		before20 = new Date(System.currentTimeMillis() - (20 * 60 * 60 * 1000));
 	}
 
 	@Override
@@ -46,10 +59,25 @@ public class WakeListAdapter extends CursorAdapter {
 		TextView lMacAddr = (TextView) view.findViewById(R.id.lMacAddr);
 		TextView lName = (TextView) view.findViewById(R.id.lName);
 		ImageView iTrigger = (ImageView) view.findViewById(R.id.iTrigger);
+		TextView lLastSent = (TextView) view.findViewById(R.id.lLastSent);
+		TextView lWolCount = (TextView) view.findViewById(R.id.lWolCount);
 
 		lAddr.setText(entry.getIp() + PORT_SEPARATOR + entry.getPort());
 		lMacAddr.setText(entry.getMacAddress());
 		lName.setText(entry.getName());
+		lWolCount.setText("" + entry.getWolCount());
+
+		//To show date
+		Date lastWolSent = entry.getLastWolSentDate();
+		if(lastWolSent != null) {
+			//We show date for 20 hours before this moment
+			if(before20.before(lastWolSent))
+				lLastSent.setText(formatterTime.format(lastWolSent));
+			else
+				lLastSent.setText(formatterDate.format(lastWolSent));
+		} else {
+			lLastSent.setText("");
+		}
 
 		//if has trigger, show icon, if trigger is the same current network show active icon.
 		int icon = 0;//This is not the fastest way to do it, but it looks cleaner to me.

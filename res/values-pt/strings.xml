@@ -16,6 +16,7 @@
     <string name="recover">Recuperar</string>
     <string name="gong">Gongo</string>
     <string name="clear">Limpar</string>
+    <string name="sort">Ordenar</string>
 
     <string name="getCurrent">Buscar atual</string>
     <string name="deletedList">Listar removidos</string>

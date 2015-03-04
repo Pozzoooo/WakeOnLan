@@ -20,6 +20,7 @@ public class WakeEntry implements Serializable {
 	private String triggerSsid;
 	private Date deletedDate;
 	private Date lastWolSentDate;
+	private int wolCount;
 
 	public void setId(long id) {
 		this.id = id;
@@ -68,5 +69,17 @@ public class WakeEntry implements Serializable {
 	}
 	public Date getLastWolSentDate() {
 		return lastWolSentDate;
+	}
+	public void setWolCount(int wolCount) {
+		this.wolCount = wolCount;
+	}
+	public int getWolCount() {
+		return wolCount;
+	}
+	/**
+	 * @return new value.
+	 */
+	public int increasCount() {
+		return ++wolCount;
 	}
 }

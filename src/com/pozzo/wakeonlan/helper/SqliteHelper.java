@@ -16,7 +16,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * @since 2014-05-03
  */
 public class SqliteHelper extends SQLiteOpenHelper {
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 	private static final String DB_NAME = "db.db";
 
 	public SqliteHelper(Context context) {
@@ -53,6 +53,9 @@ public class SqliteHelper extends SQLiteOpenHelper {
 			db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " ADD COLUMN " 
 					+ WakeEntryCr.LAST_WOL_SENT_DATE + " bigint;");
 			db.execSQL(LogCr.TB_CREATE);
+		case 4:
+			db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " ADD COLUMN " 
+					+ WakeEntryCr.WOL_COUNT + " integer;");
 		default:
 			break;
 		}

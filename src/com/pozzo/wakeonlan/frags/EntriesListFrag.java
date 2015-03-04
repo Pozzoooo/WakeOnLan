@@ -37,17 +37,18 @@ import com.pozzo.wakeonlan.business.WakeBusiness;
 import com.pozzo.wakeonlan.database.ConexaoDBManager;
 import com.pozzo.wakeonlan.database.WakeEntryCr;
 import com.pozzo.wakeonlan.exception.InvalidMac;
+import com.pozzo.wakeonlan.helper.NetworkUtils;
 import com.pozzo.wakeonlan.listener.SwipeDismissListViewTouchListener;
 import com.pozzo.wakeonlan.loder.SimpleCursorLoader;
 import com.pozzo.wakeonlan.vo.LogObj;
-import com.pozzo.wakeonlan.vo.WakeEntry;
 import com.pozzo.wakeonlan.vo.LogObj.Action;
 import com.pozzo.wakeonlan.vo.LogObj.How;
+import com.pozzo.wakeonlan.vo.WakeEntry;
 
 /**
  * Shows and manage Entry lists.
  * 
- * @param MainActivity.PARAM_SHOW_DELETEDS to show only deleteds.
+ * @param MainActivity.PARAM_SHOW_DELETEDS to show only deletes.
  * 
  * @author Luiz Gustavo Pozzo
  * @since 2014-05-03
@@ -239,6 +240,7 @@ public class EntriesListFrag extends ListFragment
 			}
 
 			protected void onPostExecute(Integer result) {
+				refresh();
 				if(result == null)
 					Toast.makeText(getActivity(), getString(R.string.wakeSentTo) + entry.getName(), 
 							Toast.LENGTH_LONG).show();
@@ -246,6 +248,28 @@ public class EntriesListFrag extends ListFragment
 					Toast.makeText(getActivity(), getString(result), Toast.LENGTH_LONG).show();
 			}
 		}.execute();
+	}
+
+	/**
+	 * @return The fields to be ordered by direct related to database.
+	 */
+	private String getOrderBy() {
+		String order = "";
+		String ssid = NetworkUtils.getNetworkSsid(getActivity());
+		if(ssid != null)
+			order += WakeEntryCr.TRIGGER_SSID + " = '" + ssid + "' DESC,";
+
+		order += getDefaultOrderBy();
+		return order;
+	}
+
+	/**
+	 * @return Default order we defined.
+	 */
+	private String getDefaultOrderBy() {
+		return WakeEntryCr.LAST_WOL_SENT_DATE + "," +
+				WakeEntryCr.WOL_COUNT + "," +
+				WakeEntryCr.NAME;
 	}
 
 	@Override
@@ -274,7 +298,8 @@ public class EntriesListFrag extends ListFragment
 				loaderDb = conexao.getDb();
 				String where = WakeEntryCr.DELETED_DATE 
 						+ (showDeleteds ? " is not null" : " is null");
-				return loaderDb.query(WakeEntryCr.TB_NAME, null, where, null, null, null, null);
+				return loaderDb.query(
+						WakeEntryCr.TB_NAME, null, where, null, null, null, getOrderBy());
 			}
 		};
 	}
@@ -291,7 +316,7 @@ public class EntriesListFrag extends ListFragment
                 new SwipeDismissListViewTouchListener.DismissCallbacks() {
                     @Override
                     public boolean canDismiss(int position) {
-                        return false;//TODO fix position misbehavior
+                        return !showDeleteds;//TODO why do you reset the position?
                     }
 
                     @Override
@@ -303,11 +328,11 @@ public class EntriesListFrag extends ListFragment
                         		for(int it : reverseSortedPositions) {
                         			bus.trash(adapter.getItem(it).getId());
                         		}
+                                refresh();
                         		return null;
                         	}
 
                         	protected void onPostExecute(Void result) {
-                                refresh();
                         	}
                         }.execute();
                     }
@@ -336,7 +361,7 @@ public class EntriesListFrag extends ListFragment
 			return loaderDb.query(WakeEntryCr.TB_NAME, null, "(" + WakeEntryCr.NAME + " like ? OR " 
 					+ WakeEntryCr.IP + " like ? OR " + WakeEntryCr.MAC_ADDRESS + " like ? OR " 
 					+ WakeEntryCr.TRIGGER_SSID + " like ?) " + where, 
-					new String[] {query, query, query, query}, null, null, null);
+					new String[] {query, query, query, query}, null, null, getOrderBy());
 		}
 	};
 }

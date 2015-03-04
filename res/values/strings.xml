@@ -16,6 +16,7 @@
     <string name="recover">Recover</string>
     <string name="gong">Gong</string>
     <string name="clear">Clear</string>
+    <string name="sort">Sort</string>
 
     <string name="getCurrent">Get current network name</string>
     <string name="deletedList">List deleted items</string>

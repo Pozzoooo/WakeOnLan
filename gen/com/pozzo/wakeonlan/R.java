@@ -66,7 +66,7 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020011;
     }
     public static final class id {
-        public static final int add=0x7f0b001e;
+        public static final int add=0x7f0b0020;
         public static final int bCancel=0x7f0b0001;
         public static final int bClose=0x7f0b0007;
         public static final int bHelpTrigger=0x7f0b0017;
@@ -81,28 +81,30 @@ containing a value of this type.
         public static final int fragEntryList=0x7f0b0010;
         public static final int fragLogList=0x7f0b000a;
         public static final int fragment_container=0x7f0b0000;
-        public static final int help=0x7f0b0021;
-        public static final int iTrigger=0x7f0b001b;
+        public static final int help=0x7f0b0023;
+        public static final int iTrigger=0x7f0b001d;
         public static final int lAction=0x7f0b000b;
-        public static final int lAddr=0x7f0b001a;
+        public static final int lAddr=0x7f0b001c;
         public static final int lBroadcast=0x7f0b0009;
         public static final int lDate=0x7f0b000f;
         public static final int lDescription=0x7f0b000e;
         public static final int lHow=0x7f0b000c;
         public static final int lIp=0x7f0b0008;
+        public static final int lLastSent=0x7f0b0019;
         public static final int lLink=0x7f0b0006;
-        public static final int lMacAddr=0x7f0b0019;
+        public static final int lMacAddr=0x7f0b001b;
         public static final int lMsg=0x7f0b0005;
         public static final int lName=0x7f0b0018;
         public static final int lTitle=0x7f0b0004;
         public static final int lWakeEntryName=0x7f0b000d;
-        public static final int mActionSearch=0x7f0b001c;
-        public static final int mClear=0x7f0b001d;
-        public static final int mDelete=0x7f0b0023;
-        public static final int mEdit=0x7f0b0022;
-        public static final int mRecover=0x7f0b0024;
-        public static final int showDeletedList=0x7f0b001f;
-        public static final int showLogList=0x7f0b0020;
+        public static final int lWolCount=0x7f0b001a;
+        public static final int mActionSearch=0x7f0b001e;
+        public static final int mClear=0x7f0b001f;
+        public static final int mDelete=0x7f0b0025;
+        public static final int mEdit=0x7f0b0024;
+        public static final int mRecover=0x7f0b0026;
+        public static final int showDeletedList=0x7f0b0021;
+        public static final int showLogList=0x7f0b0022;
     }
     public static final class layout {
         public static final int add_wake_entry_activity=0x7f030000;
@@ -125,67 +127,68 @@ containing a value of this type.
         public static final int single_selection_deleted=0x7f0a0004;
     }
     public static final class string {
-        public static final int actionDeleted=0x7f070018;
-        public static final int actionNewHomeWidget=0x7f07001a;
-        public static final int actionNewLockWidget=0x7f07001b;
-        public static final int actionReplaced=0x7f070016;
-        public static final int actionSent=0x7f070017;
-        public static final int actionTrashed=0x7f070019;
+        public static final int actionDeleted=0x7f070019;
+        public static final int actionNewHomeWidget=0x7f07001b;
+        public static final int actionNewLockWidget=0x7f07001c;
+        public static final int actionReplaced=0x7f070017;
+        public static final int actionSent=0x7f070018;
+        public static final int actionTrashed=0x7f07001a;
         public static final int add=0x7f070005;
         public static final int animShort=0x7f070000;
         public static final int appName=0x7f070002;
         public static final int arrow=0x7f070008;
-        public static final int cantGetSsid=0x7f070026;
+        public static final int cantGetSsid=0x7f070027;
         public static final int clear=0x7f070011;
         public static final int close=0x7f07000b;
         public static final int delete=0x7f07000c;
-        public static final int deletedList=0x7f070013;
+        public static final int deletedList=0x7f070014;
         public static final int discard=0x7f070007;
         public static final int done=0x7f070006;
         public static final int edit=0x7f07000d;
         public static final int example=0x7f070003;
-        public static final int getCurrent=0x7f070012;
+        public static final int getCurrent=0x7f070013;
         public static final int gong=0x7f070010;
         public static final int help=0x7f07000a;
-        public static final int helpLink=0x7f070030;
+        public static final int helpLink=0x7f070031;
         /**      Help 
      Help 
          */
-        public static final int helpMsg=0x7f07002e;
-        public static final int helpTrigger=0x7f07002f;
-        public static final int howDefaul=0x7f07001c;
-        public static final int howTrigged=0x7f07001e;
-        public static final int howWidgetHome=0x7f07001d;
-        public static final int ioSentError=0x7f070024;
-        public static final int ip=0x7f070028;
-        public static final int logList=0x7f070015;
-        public static final int macAddress=0x7f07002c;
+        public static final int helpMsg=0x7f07002f;
+        public static final int helpTrigger=0x7f070030;
+        public static final int howDefaul=0x7f07001d;
+        public static final int howTrigged=0x7f07001f;
+        public static final int howWidgetHome=0x7f07001e;
+        public static final int ioSentError=0x7f070025;
+        public static final int ip=0x7f070029;
+        public static final int logList=0x7f070016;
+        public static final int macAddress=0x7f07002d;
         /**      Errors msg 
      Mensagens de erro 
          */
-        public static final int macNotValid=0x7f070023;
-        public static final int name=0x7f070029;
-        public static final int netBroadcast=0x7f07002b;
-        public static final int port=0x7f07002a;
+        public static final int macNotValid=0x7f070024;
+        public static final int name=0x7f07002a;
+        public static final int netBroadcast=0x7f07002c;
+        public static final int port=0x7f07002b;
         public static final int readTime=0x7f070001;
         public static final int recover=0x7f07000f;
         public static final int search=0x7f07000e;
-        public static final int triggerSsid=0x7f07002d;
+        public static final int sort=0x7f070012;
+        public static final int triggerSsid=0x7f07002e;
         /**      Tutorial messages 
      Tutorial messages 
          */
-        public static final int tutoCreate=0x7f07001f;
-        public static final int tutoEditWake=0x7f070021;
-        public static final int tutoHelp=0x7f070022;
-        public static final int tutoWake=0x7f070020;
-        public static final int valuesError=0x7f070025;
+        public static final int tutoCreate=0x7f070020;
+        public static final int tutoEditWake=0x7f070022;
+        public static final int tutoHelp=0x7f070023;
+        public static final int tutoWake=0x7f070021;
+        public static final int valuesError=0x7f070026;
         public static final int wake=0x7f070004;
-        public static final int wakeSentTo=0x7f070014;
+        public static final int wakeSentTo=0x7f070015;
         public static final int welcome=0x7f070009;
         /**      Labels 
      Labels 
          */
-        public static final int yourIp=0x7f070027;
+        public static final int yourIp=0x7f070028;
     }
     public static final class style {
         /**  Application theme. 

@@ -25,6 +25,8 @@ public class WakeEntryCr {
 	public static final String DELETED_DATE = "deleted_date";
 	//I was in doubt about FK, denormalization or just querying when needed.
 	public static final String LAST_WOL_SENT_DATE = "last_wol_sent_date";
+	//it will count the number of wol sented
+	public static final String WOL_COUNT = "wol_count";
 
 	/**
 	 * Create Table SQL.
@@ -37,7 +39,8 @@ public class WakeEntryCr {
 			PORT + " integer not null, " +
 			TRIGGER_SSID + " varchar, " +
 			DELETED_DATE + " bigint, " +
-			LAST_WOL_SENT_DATE + " bigint" +
+			LAST_WOL_SENT_DATE + " bigint, " +
+			WOL_COUNT + " integer" +
 		");";
 
 	/**
@@ -53,6 +56,7 @@ public class WakeEntryCr {
 		values.put(IP, entry.getIp());
 		values.put(PORT, entry.getPort());
 		values.put(TRIGGER_SSID, entry.getTriggerSsid());
+		values.put(WOL_COUNT, entry.getWolCount());
 
 		//Special handle for deleted date.
 		if(entry.getDeletedDate() != null)
@@ -79,6 +83,7 @@ public class WakeEntryCr {
 		entry.setIp(cursor.getString(cursor.getColumnIndex(IP)));
 		entry.setPort(cursor.getInt(cursor.getColumnIndex(PORT)));
 		entry.setTriggerSsid(cursor.getString(cursor.getColumnIndex(TRIGGER_SSID)));
+		entry.setWolCount(cursor.getInt(cursor.getColumnIndex(WOL_COUNT)));
 
 		//Special handle for nullable fields.
 		int idx = cursor.getColumnIndex(DELETED_DATE);

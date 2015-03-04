@@ -1,11 +1,13 @@
 package com.pozzo.wakeonlan.business;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
 
 import com.bugsense.trace.BugSenseHandler;
+import com.pozzo.wakeonlan.App;
 import com.pozzo.wakeonlan.dao.WakeEntryDao;
 import com.pozzo.wakeonlan.exception.InvalidMac;
 import com.pozzo.wakeonlan.helper.WakeOnLan;
@@ -74,6 +76,18 @@ public class WakeBusiness {
 	public void wakeUp(WakeEntry entry, LogObj log) throws IOException, InvalidMac {
 		new WakeOnLan().wakeUp(entry.getIp(), entry.getMacAddress(), entry.getPort());
 		new LogBusiness().insert(log);
+		markNewSent(entry);
+	}
+
+	/**
+	 * This just updates with a new count sent for this wol entry.
+	 * 
+	 * @param entry to be marker with a +1 count.
+	 */
+	public void markNewSent(WakeEntry entry) {
+		entry.setLastWolSentDate(new Date());
+		entry.increasCount();
+		replace(entry, App.getAppContext());
 	}
 
 	/**

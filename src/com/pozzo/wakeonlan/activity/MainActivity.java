@@ -125,6 +125,10 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 		startActivity(intent);
 	}
 
+	public void onSort(MenuItem item) {
+		
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {

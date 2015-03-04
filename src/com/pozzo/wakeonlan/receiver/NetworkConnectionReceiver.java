@@ -35,9 +35,8 @@ public class NetworkConnectionReceiver extends BroadcastReceiver {
 		boolean noConnectivity = 
 			intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
 
-		if(!noConnectivity) {
-			networkSsid = NetworkUtils.getNetworkSsid(ctx);
-
+		networkSsid = NetworkUtils.getNetworkSsid(ctx);
+		if(!noConnectivity && networkSsid != null) {
 			Thread background = new Thread() {
 				public void run() {
 					WakeBusiness wakeBus = new WakeBusiness();
