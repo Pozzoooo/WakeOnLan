@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:locale="en">
+
     <string name="appName">Wake On Lan</string>
     <string name="example">Example</string>
     <string name="wake">Wake</string>
@@ -54,6 +56,7 @@
     <string name="netBroadcast">Broadcast</string>
     <string name="macAddress">MAC Address</string>
     <string name="triggerSsid">Trigger on network</string>
+    <string name="showAdvancedSettings">Show advanced settings</string>
 
 <!--     Help -->
 	<string name="helpMsg">You need to pre-configure desired machine(s) to 
@@ -61,5 +64,5 @@
 	    on you SO.
 	    Take a look at link for more details.</string>
 	<string name="helpTrigger">Name of a network which will trigger (when connected) current wake message, or empty for no trigger.</string>
-	<string name="helpLink"><a href="http://windows7-issues.blogspot.com.br/2011/03/wake-on-lan-wol-for-windows-7-made-easy.html">Windows</a></string>
+	<string name="helpLink" translatable="false"><a href="http://windows7-issues.blogspot.com.br/2011/03/wake-on-lan-wol-for-windows-7-made-easy.html">Windows</a></string>
 </resources>

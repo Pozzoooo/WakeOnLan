@@ -16,7 +16,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * @since 2014-05-03
  */
 public class SqliteHelper extends SQLiteOpenHelper {
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 6;
 	private static final String DB_NAME = "db.db";
 
 	public SqliteHelper(Context context) {
@@ -45,17 +45,26 @@ public class SqliteHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		switch (oldVersion) {
 		case 1:
-			db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " ADD COLUMN " 
-					+ WakeEntryCr.DELETED_DATE + " bigint;");
+            //Full creation at step 5... maintain for historic only?
+//			db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " ADD COLUMN "
+//					+ WakeEntryCr.DELETED_DATE + " bigint;");
 		case 2:
 			db.execSQL(WidgetControlCr.TB_CREATE);
 		case 3:
-			db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " ADD COLUMN " 
-					+ WakeEntryCr.LAST_WOL_SENT_DATE + " bigint;");
+            //Full creation at step 5... maintain for historic only?
+//			db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " ADD COLUMN "
+//					+ WakeEntryCr.LAST_WOL_SENT_DATE + " bigint;");
 			db.execSQL(LogCr.TB_CREATE);
 		case 4:
-			db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " ADD COLUMN " 
-					+ WakeEntryCr.WOL_COUNT + " integer;");
+            //Full creation at step 5... maintain for historic only?
+//			db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " ADD COLUMN "
+//					+ WakeEntryCr.WOL_COUNT + " integer;");
+        case 5:
+            //Remove unique MAC field (user may want to have internal and external entries)
+            db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " RENAME TO tempWake");
+            db.execSQL(WakeEntryCr.TB_CREATE);
+            db.execSQL("INSERT INTO " + WakeEntryCr.TB_NAME + " SELECT * FROM tempWake");
+            db.execSQL("DROP TABLE tempWake");
 		default:
 			break;
 		}

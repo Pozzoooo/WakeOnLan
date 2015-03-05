@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="animShort">300</string>
-    <string name="readTime">4000</string>
+    <string name="animShort" translatable="false">300</string>
+    <string name="readTime" translatable="false">4000</string>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>

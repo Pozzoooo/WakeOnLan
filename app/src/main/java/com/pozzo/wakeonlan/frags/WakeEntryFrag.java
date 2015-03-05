@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ public class WakeEntryFrag extends Fragment {
 	private EditText ePort;
 	private EditText eName;
 	private EditText eTrigger;
+    private ViewGroup vgAdvancedSettings;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -64,9 +67,12 @@ public class WakeEntryFrag extends Fragment {
 		ePort = (EditText) contentView.findViewById(R.id.ePort);
 		eName = (EditText) contentView.findViewById(R.id.eName);
 		eTrigger = (EditText) contentView.findViewById(R.id.eTriggerSsid);
+        vgAdvancedSettings = (ViewGroup) contentView.findViewById(R.id.vgAdvancedSettings);
 
 		ImageButton bHelpTrigger = (ImageButton) contentView.findViewById(R.id.bHelpTrigger);
 		ImageButton bSsid = (ImageButton) contentView.findViewById(R.id.bSsid);
+        CheckBox cbShowAdavancedSettings = (CheckBox)
+                contentView.findViewById(R.id.cbShowAdavancedSettings);
 
 		fillLayout();
 
@@ -74,6 +80,7 @@ public class WakeEntryFrag extends Fragment {
 
 		bHelpTrigger.setOnClickListener(onHelpTrigger);
 		bSsid.setOnClickListener(onGetSsid);
+        cbShowAdavancedSettings.setOnCheckedChangeListener(onShowAdavancedSettings);
 
 		return contentView;
 	}
@@ -104,6 +111,14 @@ public class WakeEntryFrag extends Fragment {
 				eTrigger.setText(ssid);
 		}
 	};
+
+    private CompoundButton.OnCheckedChangeListener onShowAdavancedSettings =
+            new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    vgAdvancedSettings.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+                }
+            };
 
 	/**
 	 * @return The entry.
@@ -198,6 +213,7 @@ public class WakeEntryFrag extends Fragment {
 			entry = new WakeEntry();
 			entry.setPort(NetworkUtils.getDefaultWakePort());
 			try {
+                //TODO maybe I should let it null and get at runtime.
 				InetAddress myBroad = utils.getMyBroadcast();
 				if(myBroad != null)
 					entry.setIp(myBroad.getHostAddress());

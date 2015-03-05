@@ -54,6 +54,7 @@
     <string name="netBroadcast">Broadcast</string>
     <string name="macAddress">Mac Address</string>
     <string name="triggerSsid">Disparar ao acessar</string>
+    <string name="showAdvancedSettings">Configurações avançadas</string>
 
 <!--     Help -->
 	<string name="helpMsg">Para que o aplicativo funcione, é preciso que seja previamente 

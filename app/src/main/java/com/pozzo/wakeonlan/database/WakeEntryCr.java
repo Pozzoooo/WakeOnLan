@@ -33,7 +33,7 @@ public class WakeEntryCr {
 	 */
 	public static final String TB_CREATE = "create table " + TB_NAME + "( " +
 			_ID + " integer primary key autoincrement, " +
-			MAC_ADDRESS + " varchar unique not null, " +
+			MAC_ADDRESS + " varchar not null, " +
 			NAME + " varchar, " + 	
 			IP + " varchar not null, " +
 			PORT + " integer not null, " +
