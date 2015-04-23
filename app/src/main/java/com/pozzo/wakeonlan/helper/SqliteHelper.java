@@ -1,13 +1,13 @@
 package com.pozzo.wakeonlan.helper;
 
-import com.bugsense.trace.BugSenseHandler;
-import com.pozzo.wakeonlan.database.LogCr;
-import com.pozzo.wakeonlan.database.WakeEntryCr;
-import com.pozzo.wakeonlan.database.WidgetControlCr;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.pozzo.wakeonlan.database.LogCr;
+import com.pozzo.wakeonlan.database.WakeEntryCr;
+import com.pozzo.wakeonlan.database.WidgetControlCr;
+import com.splunk.mint.Mint;
 
 /**
  * Sqlite Helper...............
@@ -34,7 +34,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 			db.execSQL(LogCr.TB_CREATE);
 		} catch(RuntimeException e) {
 			//Some devices seems to call it more than once, I need to check why!
-			BugSenseHandler.sendException(e);
+			Mint.logException(e);
 		}
 	}
 

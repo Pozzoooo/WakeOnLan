@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
-import com.bugsense.trace.BugSenseHandler;
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.business.WakeBusiness;
 import com.pozzo.wakeonlan.business.WidgetControlBusiness;
@@ -22,6 +21,7 @@ import com.pozzo.wakeonlan.frags.EntriesListFrag;
 import com.pozzo.wakeonlan.frags.HelpDialog;
 import com.pozzo.wakeonlan.receiver.GongWidget;
 import com.pozzo.wakeonlan.vo.WakeEntry;
+import com.splunk.mint.Mint;
 
 /**
  * Well, this is our Main Activity =D.
@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			onBackPressed();
+			finish();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -125,10 +125,6 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 		startActivity(intent);
 	}
 
-	public void onSort(MenuItem item) {
-		
-	}
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
@@ -166,7 +162,7 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 					}
 				} catch(SQLiteDatabaseLockedException e) {
 					//Looks like something specific is happening on some device
-					BugSenseHandler.sendException(e);//Let's keep tracking
+					Mint.logException(e);//Let's keep tracking
 				}
 				return false;
 			}

@@ -1,8 +1,5 @@
 package com.pozzo.wakeonlan.receiver;
 
-import java.io.IOException;
-import java.util.List;
-
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -11,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.util.Log;
 
-import com.bugsense.trace.BugSenseHandler;
 import com.pozzo.wakeonlan.business.WakeBusiness;
 import com.pozzo.wakeonlan.exception.InvalidMac;
 import com.pozzo.wakeonlan.helper.NetworkUtils;
@@ -19,6 +15,10 @@ import com.pozzo.wakeonlan.vo.LogObj;
 import com.pozzo.wakeonlan.vo.LogObj.Action;
 import com.pozzo.wakeonlan.vo.LogObj.How;
 import com.pozzo.wakeonlan.vo.WakeEntry;
+import com.splunk.mint.Mint;
+
+import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -48,7 +48,7 @@ public class NetworkConnectionReceiver extends BroadcastReceiver {
 							wakeBus.wakeUp(it, log);
 						} catch (IOException e) {
 							Log.e("IO", it.getName() + " " + e.getMessage());
-							BugSenseHandler.sendException(e);
+							Mint.logException(e);
 						} catch(InvalidMac e) {
 							//We just ignore the error and wish user are going to fix it soon.
 						}

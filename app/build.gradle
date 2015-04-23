@@ -18,7 +18,13 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url "https://mint.splunk.com/gradle/"
+    }
+}
+
 dependencies {
     compile 'com.android.support:support-v4:19.1.0'
-    compile files('libs/bugsense-3.6.1.jar')
+    compile "com.splunk.mint:mint:4.1"
 }

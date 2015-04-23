@@ -2,7 +2,7 @@ package com.pozzo.wakeonlan;
 
 import android.app.Application;
 
-import com.bugsense.trace.BugSenseHandler;
+import com.splunk.mint.Mint;
 
 /**
  * This is our APP!
@@ -16,7 +16,7 @@ public class App extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-//		BugSenseHandler.initAndStartSession(this, "22c71818");
+		Mint.initAndStartSession(this, "22c71818");
 
 		appContext = this;
 	}

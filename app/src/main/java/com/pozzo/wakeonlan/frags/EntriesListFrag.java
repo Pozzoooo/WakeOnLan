@@ -1,7 +1,5 @@
 package com.pozzo.wakeonlan.frags;
 
-import java.io.IOException;
-
 import android.app.Activity;
 import android.app.ListFragment;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -28,7 +26,6 @@ import android.widget.ListView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
-import com.bugsense.trace.BugSenseHandler;
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.activity.AddWakeEntryActivity;
 import com.pozzo.wakeonlan.activity.MainActivity;
@@ -44,11 +41,14 @@ import com.pozzo.wakeonlan.vo.LogObj;
 import com.pozzo.wakeonlan.vo.LogObj.Action;
 import com.pozzo.wakeonlan.vo.LogObj.How;
 import com.pozzo.wakeonlan.vo.WakeEntry;
+import com.splunk.mint.Mint;
+
+import java.io.IOException;
 
 /**
  * Shows and manage Entry lists.
  * 
- * @param MainActivity.PARAM_SHOW_DELETEDS to show only deletes.
+ * MainActivity.PARAM_SHOW_DELETEDS to show only deletes.
  * 
  * @author Luiz Gustavo Pozzo
  * @since 2014-05-03
@@ -212,7 +212,7 @@ public class EntriesListFrag extends ListFragment
 			if(!(getActivity() instanceof MainActivity)) {
 				IllegalArgumentException bug = new IllegalArgumentException(
 							"Widget creationg bug, fragment attached in different activity!");
-				BugSenseHandler.sendException(bug);
+				Mint.logException(bug);
 				throw bug;
 			}
 			MainActivity activity = (MainActivity) getActivity();
@@ -316,7 +316,7 @@ public class EntriesListFrag extends ListFragment
                 new SwipeDismissListViewTouchListener.DismissCallbacks() {
                     @Override
                     public boolean canDismiss(int position) {
-                        return !showDeleteds;//TODO why do you reset the position?
+                        return false;//!showDeleteds;//TODO why do you reset the position?
                     }
 
                     @Override

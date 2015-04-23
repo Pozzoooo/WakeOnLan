@@ -1,14 +1,7 @@
 package com.pozzo.wakeonlan.business;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.util.Date;
-import java.util.List;
-
 import android.content.Context;
 
-import com.bugsense.trace.BugSenseHandler;
 import com.pozzo.wakeonlan.App;
 import com.pozzo.wakeonlan.dao.WakeEntryDao;
 import com.pozzo.wakeonlan.exception.InvalidMac;
@@ -18,6 +11,13 @@ import com.pozzo.wakeonlan.receiver.NetworkConnectionReceiver;
 import com.pozzo.wakeonlan.vo.LogObj;
 import com.pozzo.wakeonlan.vo.LogObj.Action;
 import com.pozzo.wakeonlan.vo.WakeEntry;
+import com.splunk.mint.Mint;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Business logic for our {@link WakeEntry}.
@@ -36,7 +36,7 @@ public class WakeBusiness {
 	public void replace(WakeEntry entry, Context context) {
         long id = replaceInternal(entry, context);
 		if(id > (Integer.MAX_VALUE/2))//Just for precaution
-			BugSenseHandler.sendException(new Exception("They have already really big ids"));
+			Mint.logException(new Exception("They have already really big ids"));
 		entry.setId(id);
 
 		//Log it for future tracking.
@@ -138,6 +138,8 @@ public class WakeBusiness {
 	 * @return a list of all matched entries.
 	 */
 	public List<WakeEntry> getByTrigger(String trigger) {
+		if(trigger == null)//Just to make sure
+			return null;
 		return new WakeEntryDao().getByTrigger(trigger);
 	}
 

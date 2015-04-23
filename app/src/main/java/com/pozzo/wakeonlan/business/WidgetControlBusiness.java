@@ -1,13 +1,13 @@
 package com.pozzo.wakeonlan.business;
 
-import java.util.List;
-
-import com.bugsense.trace.BugSenseHandler;
 import com.pozzo.wakeonlan.dao.WidgetControlDao;
 import com.pozzo.wakeonlan.vo.LogObj;
-import com.pozzo.wakeonlan.vo.WakeEntry;
 import com.pozzo.wakeonlan.vo.LogObj.Action;
 import com.pozzo.wakeonlan.vo.LogObj.How;
+import com.pozzo.wakeonlan.vo.WakeEntry;
+import com.splunk.mint.Mint;
+
+import java.util.List;
 
 /**
  * Business logic for Widget control.
@@ -21,7 +21,7 @@ public class WidgetControlBusiness {
 	 * Insert a new widget with its related entries ids.
 	 * 
 	 * @param widgetId added.
-	 * @param wakeEntryId related to the given widget.
+	 * @param wakeEntries related to the given widget.
 	 */
 	public void insert(int widgetId, WakeEntry ...wakeEntries) {
 		long[] ids = new long[wakeEntries.length];
@@ -45,7 +45,7 @@ public class WidgetControlBusiness {
 	public int delete(int ...widgetId) {
 		if(widgetId == null || widgetId.length == 0) {
 			//Handling only for acknowledge behavior
-			BugSenseHandler.sendException(new RuntimeException("Sent 0 or null: " + widgetId));
+			Mint.logException(new RuntimeException("Sent 0 or null: " + widgetId));
 			return 0;//Deleting nothing?
 		}
 		return new WidgetControlDao().delete(widgetId);

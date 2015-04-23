@@ -1,9 +1,9 @@
 package com.pozzo.wakeonlan.frags;
 
-import java.net.InetAddress;
-import java.net.SocketException;
-
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -18,10 +18,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.bugsense.trace.BugSenseHandler;
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.helper.NetworkUtils;
 import com.pozzo.wakeonlan.vo.WakeEntry;
+import com.splunk.mint.Mint;
+
+import java.net.InetAddress;
+import java.net.SocketException;
 
 /**
  * Fragment which should register a new Mac to our database. 
@@ -39,6 +42,15 @@ public class WakeEntryFrag extends Fragment {
 	private EditText eName;
 	private EditText eTrigger;
     private ViewGroup vgAdvancedSettings;
+
+	//Pre-configs
+	private boolean showAdvanced;
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		loadPreferences(activity);
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -74,6 +86,9 @@ public class WakeEntryFrag extends Fragment {
         CheckBox cbShowAdavancedSettings = (CheckBox)
                 contentView.findViewById(R.id.cbShowAdavancedSettings);
 
+		showAdvanced(showAdvanced);
+		cbShowAdavancedSettings.setChecked(showAdvanced);
+
 		fillLayout();
 
 		eMac.setOnFocusChangeListener(onMacDone);
@@ -83,6 +98,39 @@ public class WakeEntryFrag extends Fragment {
         cbShowAdavancedSettings.setOnCheckedChangeListener(onShowAdavancedSettings);
 
 		return contentView;
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		savePreferences(getActivity());
+	}
+
+	/**
+	 * We are going to use some preferences to create a more personalized interface to user.
+	 *
+	 * @param context to get preferences.
+	 */
+	private void loadPreferences(Context context) {
+		SharedPreferences prefs = context.getSharedPreferences(
+				context.getString(R.string.pref_addScreen), Context.MODE_PRIVATE);
+
+		showAdvanced = prefs.getBoolean(context.getString(R.string.key_showAdvanced), false);
+	}
+
+	/**
+	 * Apply chagens to preferences.
+	 * TODO Any sophisticated way to not apply when there is no change, without flag or verification.
+	 *
+	 * @param context to set preferences.
+	 */
+	private void savePreferences(Context context) {
+		SharedPreferences.Editor prefs = context.getSharedPreferences(
+				context.getString(R.string.pref_addScreen), Context.MODE_PRIVATE).edit();
+
+		prefs.putBoolean(context.getString(R.string.key_showAdvanced), showAdvanced);
+
+		prefs.apply();
 	}
 
 	/**
@@ -116,9 +164,19 @@ public class WakeEntryFrag extends Fragment {
             new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    vgAdvancedSettings.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+					showAdvanced(isChecked);
                 }
             };
+
+	/**
+	 * It does not change checkbox.
+	 *
+	 * @param show the advanced settings.
+	 */
+	private void showAdvanced(boolean show) {
+		showAdvanced = show;
+		vgAdvancedSettings.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
 
 	/**
 	 * @return The entry.
@@ -219,7 +277,7 @@ public class WakeEntryFrag extends Fragment {
 					entry.setIp(myBroad.getHostAddress());
 			} catch(final SocketException e) {
 				//We ignore, and user can fill manually
-				BugSenseHandler.sendException(e);
+				Mint.logException(e);
 			}
 		}
 
