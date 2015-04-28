@@ -5,14 +5,14 @@
     tools:context=".MainActivity"
     android:orientation="vertical" >
 
-    <com.pozzo.wakeonlan.components.LabeldTextView
+    <com.pozzo.wakeonlan.ui.components.LabeldTextView
         android:id="@+id/lIp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/yourIp"
         style="@style/textView" />
 
-    <com.pozzo.wakeonlan.components.LabeldTextView
+    <com.pozzo.wakeonlan.ui.components.LabeldTextView
         android:id="@+id/lBroadcast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

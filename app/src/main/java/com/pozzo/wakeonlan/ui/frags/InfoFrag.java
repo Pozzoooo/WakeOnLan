@@ -1,7 +1,4 @@
-package com.pozzo.wakeonlan.frags;
-
-import java.net.InetAddress;
-import java.net.SocketException;
+package com.pozzo.wakeonlan.ui.frags;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -12,6 +9,9 @@ import android.widget.TextView;
 
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.helper.NetworkUtils;
+
+import java.net.InetAddress;
+import java.net.SocketException;
 
 /**
  * This is just an informative screen.

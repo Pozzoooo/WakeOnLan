@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="@android:style/Theme.Material.Light">
+        <!-- Your app branding color for the app bar -->
+        <item name="android:colorPrimary">@color/primary</item>
+        <!-- Darker variant for the status bar and contextual app bars -->
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <!-- Theme UI controls like checkboxes and text fields -->
+        <item name="android:colorAccent">@color/accent</item>
+        <!-- Navigation colored -->
+        <item name="android:navigationBarColor">@color/primary_dark</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!-- Windows backgound colored -->
+        <item name="android:windowBackground">@color/windowBackground</item>
+    </style>
+</resources>

@@ -1,7 +1,4 @@
-package com.pozzo.wakeonlan.adapter;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+package com.pozzo.wakeonlan.ui.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -16,6 +13,9 @@ import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.database.LogCr;
 import com.pozzo.wakeonlan.database.WakeEntryCr;
 import com.pozzo.wakeonlan.vo.LogObj;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Adapter to show log rows.
@@ -54,7 +54,6 @@ public class LogAdapter extends CursorAdapter {
 		TextView lDate = (TextView) view.findViewById(R.id.lDate);
 		TextView lWakeEntryName = (TextView) view.findViewById(R.id.lWakeEntryName);
 
-		//TODO Does this deserves a LruCache?
 		lAction.setText(resources.getString(log.getAction().getTextRes()));
 		lAction.setTextColor(resources.getColor(log.getAction().getColor()));
 		lHow.setText(resources.getString(log.getHow().getTextRes()));

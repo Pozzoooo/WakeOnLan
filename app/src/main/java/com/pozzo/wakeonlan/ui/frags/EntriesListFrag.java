@@ -1,4 +1,4 @@
-package com.pozzo.wakeonlan.frags;
+package com.pozzo.wakeonlan.ui.frags;
 
 import android.app.Activity;
 import android.app.ListFragment;
@@ -27,16 +27,16 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
 import com.pozzo.wakeonlan.R;
-import com.pozzo.wakeonlan.activity.AddWakeEntryActivity;
-import com.pozzo.wakeonlan.activity.MainActivity;
-import com.pozzo.wakeonlan.adapter.WakeListAdapter;
 import com.pozzo.wakeonlan.business.WakeBusiness;
 import com.pozzo.wakeonlan.database.ConexaoDBManager;
 import com.pozzo.wakeonlan.database.WakeEntryCr;
 import com.pozzo.wakeonlan.exception.InvalidMac;
 import com.pozzo.wakeonlan.helper.NetworkUtils;
 import com.pozzo.wakeonlan.listener.SwipeDismissListViewTouchListener;
-import com.pozzo.wakeonlan.loder.SimpleCursorLoader;
+import com.pozzo.wakeonlan.ui.activity.AddWakeEntryActivity;
+import com.pozzo.wakeonlan.ui.activity.MainActivity;
+import com.pozzo.wakeonlan.ui.adapter.WakeListAdapter;
+import com.pozzo.wakeonlan.ui.loder.SimpleCursorLoader;
 import com.pozzo.wakeonlan.vo.LogObj;
 import com.pozzo.wakeonlan.vo.LogObj.Action;
 import com.pozzo.wakeonlan.vo.LogObj.How;
@@ -74,7 +74,7 @@ public class EntriesListFrag extends ListFragment
 			listEntries.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 			listEntries.setMultiChoiceModeListener(multiChoice);
 		} else {
-			listEntries.setOnItemClickListener(onChioce);
+			listEntries.setOnItemClickListener(onChoice);
 			listEntries.setChoiceMode(ListView.CHOICE_MODE_NONE);
 		}
 	}
@@ -203,7 +203,7 @@ public class EntriesListFrag extends ListFragment
 	/**
 	 * Interaction with list.
 	 */
-	private OnItemClickListener onChioce = new OnItemClickListener() {
+	private OnItemClickListener onChoice = new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			WakeEntry entry = (WakeEntry) getListAdapter().getItem(position);
@@ -228,7 +228,7 @@ public class EntriesListFrag extends ListFragment
 
 			@Override
 			protected Integer doInBackground(Void... params) {
-				try {
+				try {//TODO we need to create a better message and handle too long mac address
 					LogObj log = new LogObj(How.defaul, entry.getId(), Action.sent);
 					new WakeBusiness().wakeUp(entry, log);
 				} catch (IOException e) {

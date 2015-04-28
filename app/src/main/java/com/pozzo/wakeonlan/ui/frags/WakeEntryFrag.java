@@ -1,4 +1,4 @@
-package com.pozzo.wakeonlan.frags;
+package com.pozzo.wakeonlan.ui.frags;
 
 import android.app.Activity;
 import android.app.Fragment;

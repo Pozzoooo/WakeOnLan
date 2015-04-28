@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
+    android:orientation="vertical">
+
 	<fragment
 	    android:id="@+id/fragLogList"
-	    class="com.pozzo.wakeonlan.frags.LogListFrag"
+	    class="com.pozzo.wakeonlan.ui.frags.LogListFrag"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent" />
 </LinearLayout>

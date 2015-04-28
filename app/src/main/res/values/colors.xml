@@ -13,4 +13,11 @@
     <color name="howDefaul">#000000</color>
     <color name="howWidgetHome">#404040</color>
     <color name="howTrigged">#808080</color>
+
+    <color name="buttonAdd">#7592ff</color>
+
+    <color name="windowBackground">#ffd7ebf0</color>
+    <color name="primary">#ffb1ccc7</color>
+    <color name="primary_dark">#ff859799</color>
+    <color name="accent">#ff3668ff</color>
 </resources>

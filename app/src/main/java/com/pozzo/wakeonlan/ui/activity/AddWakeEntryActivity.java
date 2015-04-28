@@ -1,4 +1,4 @@
-package com.pozzo.wakeonlan.activity;
+package com.pozzo.wakeonlan.ui.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,8 +6,8 @@ import android.view.View;
 
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.business.WakeBusiness;
-import com.pozzo.wakeonlan.frags.WakeEntryFrag;
 import com.pozzo.wakeonlan.helper.ItemMenuHelper;
+import com.pozzo.wakeonlan.ui.frags.WakeEntryFrag;
 import com.pozzo.wakeonlan.vo.WakeEntry;
 
 /**

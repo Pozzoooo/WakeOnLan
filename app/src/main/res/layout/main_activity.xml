@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
 	<fragment 
 	    android:id="@+id/fragEntryList"
-	    class="com.pozzo.wakeonlan.frags.EntriesListFrag"
+	    class="com.pozzo.wakeonlan.ui.frags.EntriesListFrag"
 	    android:layout_width="match_parent"
-	    android:layout_height="match_parent" />
-</LinearLayout>
+	    android:layout_height="match_parent"
+		tools:layout="@layout/saved_entries_frag"/>
+</RelativeLayout>

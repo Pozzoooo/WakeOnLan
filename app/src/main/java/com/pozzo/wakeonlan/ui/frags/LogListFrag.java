@@ -1,4 +1,4 @@
-package com.pozzo.wakeonlan.frags;
+package com.pozzo.wakeonlan.ui.frags;
 
 import android.app.Activity;
 import android.app.ListFragment;
@@ -13,14 +13,14 @@ import android.view.ViewGroup;
 import android.widget.FilterQueryProvider;
 import android.widget.Filterable;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.Toast;
 
-import com.pozzo.wakeonlan.adapter.LogAdapter;
 import com.pozzo.wakeonlan.database.ConexaoDBManager;
 import com.pozzo.wakeonlan.database.LogCr;
 import com.pozzo.wakeonlan.database.WakeEntryCr;
-import com.pozzo.wakeonlan.loder.SimpleCursorLoader;
+import com.pozzo.wakeonlan.ui.adapter.LogAdapter;
+import com.pozzo.wakeonlan.ui.loder.SimpleCursorLoader;
 import com.pozzo.wakeonlan.vo.LogObj;
 
 /**

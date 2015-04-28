@@ -1,4 +1,4 @@
-package com.pozzo.wakeonlan.activity;
+package com.pozzo.wakeonlan.ui.activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -17,9 +17,9 @@ import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.business.WakeBusiness;
 import com.pozzo.wakeonlan.business.WidgetControlBusiness;
 import com.pozzo.wakeonlan.database.WakeEntryCr;
-import com.pozzo.wakeonlan.frags.EntriesListFrag;
-import com.pozzo.wakeonlan.frags.HelpDialog;
 import com.pozzo.wakeonlan.receiver.GongWidget;
+import com.pozzo.wakeonlan.ui.frags.EntriesListFrag;
+import com.pozzo.wakeonlan.ui.frags.HelpDialog;
 import com.pozzo.wakeonlan.vo.WakeEntry;
 import com.splunk.mint.Mint;
 
@@ -169,7 +169,7 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 
 			protected void onPostExecute(Boolean result) {
 				if(result)
-					onAdd(null);
+					onAdd((MenuItem) null);
 			}
 		}.execute();
 	}

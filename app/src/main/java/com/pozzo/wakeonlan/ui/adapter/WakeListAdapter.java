@@ -1,8 +1,4 @@
-package com.pozzo.wakeonlan.adapter;
-
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+package com.pozzo.wakeonlan.ui.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -17,6 +13,10 @@ import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.database.WakeEntryCr;
 import com.pozzo.wakeonlan.helper.NetworkUtils;
 import com.pozzo.wakeonlan.vo.WakeEntry;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * How we will show our entry list.

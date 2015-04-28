@@ -1,4 +1,4 @@
-package com.pozzo.wakeonlan.components;
+package com.pozzo.wakeonlan.ui.components;
 
 import android.content.Context;
 import android.content.res.TypedArray;

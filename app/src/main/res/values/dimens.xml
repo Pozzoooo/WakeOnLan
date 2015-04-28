@@ -11,4 +11,5 @@
     <dimen name="separatorSize">1dp</dimen>
 
     <dimen name="minButtonSize">48dp</dimen>
+    <dimen name="mediumButtonSize">56dp</dimen>
 </resources>
