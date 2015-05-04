@@ -2,6 +2,8 @@ package com.pozzo.wakeonlan;
 
 import android.app.Application;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.splunk.mint.Mint;
 
 /**
@@ -12,6 +14,7 @@ import com.splunk.mint.Mint;
  */
 public class App extends Application {
 	private static App appContext;
+	private Tracker tracker;
 
 	@Override
 	public void onCreate() {
@@ -27,5 +30,17 @@ public class App extends Application {
 	 */
 	public static App getAppContext() {
 		return appContext;
+	}
+
+	/**
+	 * To track with google analytics.
+	 */
+	public synchronized Tracker getTracker() {
+		if(tracker == null) {
+			GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+			tracker = analytics.newTracker(R.xml.global_tracker);
+			tracker.enableAdvertisingIdCollection(true);
+		}
+		return  tracker;
 	}
 }

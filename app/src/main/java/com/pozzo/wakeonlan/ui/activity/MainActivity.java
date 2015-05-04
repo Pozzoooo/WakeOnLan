@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.pozzo.wakeonlan.App;
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.business.WakeBusiness;
 import com.pozzo.wakeonlan.business.WidgetControlBusiness;
@@ -61,6 +64,15 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 			ActionBar actionBar = getActionBar();
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		Tracker tracker = ((App) getApplication()).getTracker();
+		tracker.setScreenName(this.getClass().getName());
+		tracker.send(new HitBuilders.AppViewBuilder().build());
 	}
 
 	@Override

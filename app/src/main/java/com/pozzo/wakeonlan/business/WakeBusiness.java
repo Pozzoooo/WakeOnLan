@@ -15,7 +15,6 @@ import com.splunk.mint.Mint;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.util.Date;
 import java.util.List;
 
@@ -94,7 +93,11 @@ public class WakeBusiness {
 		markNewSent(entry);
 
         //We also sent on current broadcast, just to make sure user did not forget that
-        wakeUpCurrentBroadcast(entry);
+		try {
+			wakeUpCurrentBroadcast(entry);
+		} catch(IOException e) {
+			//We ignore, as it is supposed to be a plus only
+		}
 	}
 
     /**
@@ -108,16 +111,14 @@ public class WakeBusiness {
      */
     private void wakeUpCurrentBroadcast(WakeEntry entry) throws IOException, InvalidMac {
         String currentBroadcast;
-        try {
-            NetworkUtils utils = new NetworkUtils();
-            InetAddress myBroad = utils.getMyBroadcast();
-            currentBroadcast = myBroad.getHostAddress();
-            //Well we don't sent if it is the same entry or can't get current broadcast.
-            if(currentBroadcast != null && !currentBroadcast.equals(entry.getIp()))
-                new WakeOnLan().wakeUp(currentBroadcast, entry.getMacAddress(), entry.getPort());
-        } catch(SocketException e) {
-            //Ignore, just don't send
-        }
+		NetworkUtils utils = new NetworkUtils();
+		InetAddress myBroad = utils.getMyBroadcast();
+		currentBroadcast = myBroad == null ? null : myBroad.getHostAddress();
+		//Well we don't sent if it is the same entry or can't get current broadcast.
+		if(currentBroadcast != null && !currentBroadcast.equals(entry.getIp()))
+			new WakeOnLan().wakeUp(currentBroadcast, entry.getMacAddress(), entry.getPort());
+		else
+			throw new IOException("Null broadcast!");
     }
 
 	/**

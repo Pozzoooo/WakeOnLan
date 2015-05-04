@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.pozzo.wakeonlan.App;
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.business.LogBusiness;
 import com.pozzo.wakeonlan.ui.frags.LogListFrag;
@@ -31,6 +34,15 @@ public class LogListActivity extends Activity implements OnQueryTextListener {
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		logListFrag = (LogListFrag) getFragmentManager().findFragmentById(R.id.fragLogList);
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		Tracker tracker = ((App) getApplication()).getTracker();
+		tracker.setScreenName(this.getClass().getName());
+		tracker.send(new HitBuilders.AppViewBuilder().build());
 	}
 
 	@Override

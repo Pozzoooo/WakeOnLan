@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.pozzo.wakeonlan.App;
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.business.WakeBusiness;
 import com.pozzo.wakeonlan.helper.ItemMenuHelper;
@@ -35,6 +38,15 @@ public class AddWakeEntryActivity extends Activity {
 		getFragmentManager().beginTransaction().add(R.id.fragment_container, wakeFrag).commit();
 
 		ItemMenuHelper.setDoneDiscard(getActionBar(), this);
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		Tracker tracker = ((App) getApplication()).getTracker();
+		tracker.setScreenName(this.getClass().getName());
+		tracker.send(new HitBuilders.AppViewBuilder().build());
 	}
 
 	/**
