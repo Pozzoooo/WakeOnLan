@@ -53,7 +53,7 @@ public class WakeOnLan {
 	 * 
 	 * @throws IOException
 	 */
-	public void wakeUp(byte[] mac, String ip, int port) throws IOException {
+		public void wakeUp(byte[] mac, String ip, int port) throws IOException {
         DatagramSocket client = new DatagramSocket();
         client.connect(InetAddress.getByName(ip), port);
 
