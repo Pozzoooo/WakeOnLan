@@ -1,5 +1,10 @@
 package com.pozzo.wakeonlan.helper;
 
+import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
@@ -7,12 +12,6 @@ import java.net.SocketException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
-import org.apache.http.conn.util.InetAddressUtils;
-
-import android.content.Context;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 
 /**
  * Some useful netowrk methods. 
@@ -26,7 +25,7 @@ public class NetworkUtils {
 	 * We cannot trust our user, I know they do the best they can, but you know they are good in 
 	 * 	not doing what we expect.
 	 * 
-	 * @param mac to be checked.
+	 * @param macStr to be checked.
 	 * @return false if not a valid mac.
 	 */
 	public boolean isValidMac(String macStr) {
@@ -60,8 +59,7 @@ public class NetworkUtils {
 		for (NetworkInterface intf : interfaces) {
 			List<InetAddress> addrs = Collections.list(intf.getInetAddresses());
 			for (InetAddress addr : addrs) {
-				if (!addr.isLoopbackAddress() 
-						&& InetAddressUtils.isIPv4Address(addr.getHostAddress())) {
+				if (!addr.isLoopbackAddress() && addr instanceof Inet4Address) {
 					return addr;
 				}
 			}
