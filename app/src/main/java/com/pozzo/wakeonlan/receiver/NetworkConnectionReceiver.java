@@ -18,6 +18,7 @@ import com.pozzo.wakeonlan.vo.WakeEntry;
 import com.splunk.mint.Mint;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.util.List;
 
 
@@ -46,6 +47,8 @@ public class NetworkConnectionReceiver extends BroadcastReceiver {
 							LogObj log = new LogObj(
 									How.trigged, it.getId(), Action.sent);
 							wakeBus.wakeUp(it, log);
+						} catch (SocketException e){
+							//Ignoring timeout
 						} catch (IOException e) {
 							Log.e("IO", it.getName() + " " + e.getMessage());
 							Mint.logException(e);
