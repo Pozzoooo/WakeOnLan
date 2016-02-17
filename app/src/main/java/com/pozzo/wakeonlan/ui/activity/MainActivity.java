@@ -1,15 +1,17 @@
 package com.pozzo.wakeonlan.ui.activity;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
@@ -33,8 +35,10 @@ import com.splunk.mint.Mint;
  * 
  * @author Luiz Gustavo Pozzo
  * @since 2014-05-03
+ *
+ * TODO add FAB
  */
-public class MainActivity extends Activity implements OnQueryTextListener {
+public class MainActivity extends AppCompatActivity implements OnQueryTextListener {
 	public static final String PARAM_SHOW_DELETEDS = WakeEntryCr.DELETED_DATE;
 	private static final int REQ_ADD = 0x1;
 	private static final int REQ_DEL = 0x2;
@@ -54,6 +58,7 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 
 		checkEmptiness();
 
+		//TODO Async
 		new WakeBusiness().startNetworkService(this);
 
 		Bundle extras = getIntent().getExtras();
@@ -61,9 +66,12 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 			showDeleteds = extras.getBoolean(MainActivity.PARAM_SHOW_DELETEDS);
 
 		if(showDeleteds) {
-			ActionBar actionBar = getActionBar();
+			ActionBar actionBar = getSupportActionBar();
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
+
+		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+		fab.setVisibility(canAdd() ? View.VISIBLE : View.GONE);
 	}
 
 	@Override
@@ -80,15 +88,13 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 		getMenuInflater().inflate(R.menu.main, menu);
 
 		//Hide what should be only visible on main one.
-		String action = getIntent().getAction();
-		boolean visibility = !showDeleteds 
-				&& !AppWidgetManager.ACTION_APPWIDGET_CONFIGURE.equals(action);
-		menu.findItem(R.id.add).setVisible(visibility);
-		menu.findItem(R.id.showDeletedList).setVisible(visibility);
+		menu.findItem(R.id.showDeletedList).setVisible(canAdd());
 
         searchView = (SearchView) menu.findItem(R.id.mActionSearch).getActionView();
-        searchView.setQueryHint("");
-        searchView.setOnQueryTextListener(this);
+		if(searchView != null) {
+			searchView.setQueryHint("");
+			searchView.setOnQueryTextListener(this);
+		}
 
 		return true;
 	}
@@ -105,9 +111,17 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 	}
 
 	/**
+	 * @return If user can add new entries at the moment.
+	 */
+	private boolean canAdd() {
+		String action = getIntent().getAction();
+		return !showDeleteds && !AppWidgetManager.ACTION_APPWIDGET_CONFIGURE.equals(action);
+	}
+
+	/**
 	 * User wants to add a new Entry.
 	 */
-	public void onAdd(MenuItem item) {
+	public void onAdd(View view) {
 		Intent intent = new Intent(this, AddWakeEntryActivity.class);
 		startActivityForResult(intent, REQ_ADD);
 	}
@@ -181,7 +195,7 @@ public class MainActivity extends Activity implements OnQueryTextListener {
 
 			protected void onPostExecute(Boolean result) {
 				if(result)
-					onAdd((MenuItem) null);
+					onAdd(null);
 			}
 		}.execute();
 	}

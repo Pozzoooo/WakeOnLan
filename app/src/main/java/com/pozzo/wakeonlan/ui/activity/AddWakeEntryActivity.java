@@ -1,7 +1,7 @@
 package com.pozzo.wakeonlan.ui.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -19,7 +19,7 @@ import com.pozzo.wakeonlan.vo.WakeEntry;
  * @author Luiz Gustavo Pozzo
  * @since 2014-05-03
  */
-public class AddWakeEntryActivity extends Activity {
+public class AddWakeEntryActivity extends AppCompatActivity {
 	public static final String PARAM_WAKE_ENTRY = "paramWakeEntry";
 
 	private WakeEntryFrag wakeFrag;
@@ -37,7 +37,7 @@ public class AddWakeEntryActivity extends Activity {
 		wakeFrag = WakeEntryFrag.newWakeEntryFrag(entry);
 		getFragmentManager().beginTransaction().add(R.id.fragment_container, wakeFrag).commit();
 
-		ItemMenuHelper.setDoneDiscard(getActionBar(), this);
+		ItemMenuHelper.setDoneDiscard(getSupportActionBar(), this);
 	}
 
 	@Override

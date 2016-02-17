@@ -1,8 +1,8 @@
 package com.pozzo.wakeonlan.helper;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +25,11 @@ public class ItemMenuHelper {
 	 */
 	public static void setDoneDiscard(ActionBar actionBar, Context ctx) {
         actionBar.setDisplayOptions(
-                ActionBar.DISPLAY_SHOW_CUSTOM,
-                ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME
-                        | ActionBar.DISPLAY_SHOW_TITLE);
+				ActionBar.DISPLAY_SHOW_CUSTOM,
+				ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME
+						| ActionBar.DISPLAY_SHOW_TITLE);
 		View view = ((LayoutInflater) ctx
-					.getSystemService(Activity.LAYOUT_INFLATER_SERVICE))
+					.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE))
                 		.inflate(R.layout.form_menu, null);
 		actionBar.setCustomView(view, new ActionBar.LayoutParams(
 		        ViewGroup.LayoutParams.MATCH_PARENT,

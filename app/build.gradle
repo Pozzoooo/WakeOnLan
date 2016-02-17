@@ -27,5 +27,7 @@ repositories {
 dependencies {
     compile 'com.google.android.gms:play-services-analytics:7.3.0'
     compile 'com.google.android.gms:play-services-ads:7.3.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
     compile 'com.splunk.mint:mint:4.1'
 }

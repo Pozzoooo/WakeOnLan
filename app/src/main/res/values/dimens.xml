@@ -12,4 +12,7 @@
 
     <dimen name="minButtonSize">48dp</dimen>
     <dimen name="mediumButtonSize">56dp</dimen>
+
+    <dimen name="elevation_fab">4dp</dimen>
+    <dimen name="margin_fab">4dp</dimen>
 </resources>
