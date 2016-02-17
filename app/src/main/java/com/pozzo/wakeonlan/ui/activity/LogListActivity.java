@@ -1,12 +1,11 @@
 package com.pozzo.wakeonlan.ui.activity;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -21,7 +20,7 @@ import com.pozzo.wakeonlan.ui.frags.LogListFrag;
  * @author Luiz Gustavo Pozzo
  * @since 2014-07-09
  */
-public class LogListActivity extends Activity implements OnQueryTextListener {
+public class LogListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 	private LogListFrag logListFrag;
 	private SearchView searchView;
 
@@ -30,8 +29,9 @@ public class LogListActivity extends Activity implements OnQueryTextListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.log_activity);
 
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
+		ActionBar actionBar = getSupportActionBar();
+		if(actionBar != null)
+			actionBar.setDisplayHomeAsUpEnabled(true);
 
 		logListFrag = (LogListFrag) getFragmentManager().findFragmentById(R.id.fragLogList);
 	}

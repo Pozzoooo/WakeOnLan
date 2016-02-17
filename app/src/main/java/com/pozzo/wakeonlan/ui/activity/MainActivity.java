@@ -9,11 +9,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -35,10 +34,8 @@ import com.splunk.mint.Mint;
  * 
  * @author Luiz Gustavo Pozzo
  * @since 2014-05-03
- *
- * TODO add FAB
  */
-public class MainActivity extends AppCompatActivity implements OnQueryTextListener {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 	public static final String PARAM_SHOW_DELETEDS = WakeEntryCr.DELETED_DATE;
 	private static final int REQ_ADD = 0x1;
 	private static final int REQ_DEL = 0x2;
@@ -67,7 +64,8 @@ public class MainActivity extends AppCompatActivity implements OnQueryTextListen
 
 		if(showDeleteds) {
 			ActionBar actionBar = getSupportActionBar();
-			actionBar.setDisplayHomeAsUpEnabled(true);
+			if(actionBar != null)
+				actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
