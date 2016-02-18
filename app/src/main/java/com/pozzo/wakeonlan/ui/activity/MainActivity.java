@@ -55,8 +55,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
 		checkEmptiness();
 
-		//TODO Async
-		new WakeBusiness().startNetworkService(this);
+		new WakeBusiness().requestStartNetworkService(this);
 
 		Bundle extras = getIntent().getExtras();
 		if(extras != null)

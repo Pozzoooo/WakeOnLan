@@ -1,6 +1,7 @@
 package com.pozzo.wakeonlan.business;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import com.pozzo.wakeonlan.App;
 import com.pozzo.wakeonlan.dao.WakeEntryDao;
@@ -66,6 +67,24 @@ public class WakeBusiness {
 		if(getByTrigger("%").size() > 0) {
 			NetworkConnectionReceiver.startListening(true, context);
 		}
+	}
+
+	/**
+	 * Asyncrhonous start service if needed.
+	 */
+	public void requestStartNetworkService(final Context context) {
+		new AsyncTask<Void, Void, Boolean>() {
+			@Override
+			protected Boolean doInBackground(Void... params) {
+				return getByTrigger("%").size() > 0;
+			}
+
+			@Override
+			protected void onPostExecute(Boolean shouldStart) {
+				if(shouldStart)
+					NetworkConnectionReceiver.startListening(true, context);
+			}
+		}.execute();
 	}
 
 	/**
