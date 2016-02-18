@@ -24,7 +24,7 @@ import com.pozzo.wakeonlan.vo.LogObj.How;
 /**
  * This is our widget provider, all widgets events and updates should be handled here.
  * 
- * @see xml/gong_widget.xml
+ * @see xml/widget_gong.xml
  * @author Luiz Gustavo Pozzo
  * @since 2014-08-06
  */
@@ -58,7 +58,7 @@ public class GongWidget extends AppWidgetProvider {
 	 */
 	public static void updateWidget(int widgetId, WakeEntry entry, Context context) {
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-		RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.gong_widget);
+		RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.widget_gong);
 		Intent intent = new Intent(context, GongWidget.class);
 		intent.setAction(GongWidget.ACTION);
 		intent.putExtra(GongWidget.ID, widgetId);

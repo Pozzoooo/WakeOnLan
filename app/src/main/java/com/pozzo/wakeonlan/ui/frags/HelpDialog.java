@@ -26,7 +26,7 @@ public class HelpDialog extends DialogFragment {
 
 		String msg = getArguments().getString("msg");
 
-		View contentView = inflater.inflate(R.layout.help_frag, container, false);
+		View contentView = inflater.inflate(R.layout.fragment_help, container, false);
 		Button bClose = (Button) contentView.findViewById(R.id.bClose);
 		TextView lMsg = (TextView) contentView.findViewById(R.id.lMsg);
 		TextView lLink = (TextView) contentView.findViewById(R.id.lLink);

@@ -4,7 +4,7 @@
     android:minHeight="40dp"
     android:updatePeriodMillis="0"
     android:previewImage="@drawable/gong"
-    android:initialLayout="@layout/gong_widget"
+    android:initialLayout="@layout/widget_gong"
     android:configure="com.pozzo.wakeonlan.ui.activity.MainActivity"
     android:resizeMode="none"
     android:widgetCategory="home_screen" />

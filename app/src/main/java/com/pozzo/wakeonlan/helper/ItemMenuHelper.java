@@ -30,7 +30,7 @@ public class ItemMenuHelper {
 						| ActionBar.DISPLAY_SHOW_TITLE);
 		View view = ((LayoutInflater) ctx
 					.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE))
-                		.inflate(R.layout.form_menu, null);
+                		.inflate(R.layout.menu_form, null);
 		actionBar.setCustomView(view, new ActionBar.LayoutParams(
 		        ViewGroup.LayoutParams.MATCH_PARENT,
 		        ViewGroup.LayoutParams.MATCH_PARENT));

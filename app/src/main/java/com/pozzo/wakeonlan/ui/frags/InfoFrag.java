@@ -28,7 +28,7 @@ public class InfoFrag extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View contentView = 
-				inflater.inflate(R.layout.info_frag, container, false);
+				inflater.inflate(R.layout.fragment_info, container, false);
 
 		lIp = (TextView) contentView.findViewById(R.id.lIp);
 		lBroadcast = (TextView) contentView.findViewById(R.id.lBroadcast);

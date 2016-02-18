@@ -27,7 +27,7 @@ public class LogListActivity extends AppCompatActivity implements SearchView.OnQ
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.log_activity);
+		setContentView(R.layout.activity_log);
 
 		ActionBar actionBar = getSupportActionBar();
 		if(actionBar != null)

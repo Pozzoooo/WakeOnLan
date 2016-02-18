@@ -47,7 +47,7 @@ public class WakeListAdapter extends CursorAdapter {
 
 	@Override
 	public View newView(Context context, Cursor cursor, ViewGroup parent) {
-		View line = inflater.inflate(R.layout.wake_entry_row, parent, false);
+		View line = inflater.inflate(R.layout.adapter_wake_entry, parent, false);
 		return line;
 	}
 

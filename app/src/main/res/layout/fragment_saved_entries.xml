@@ -8,6 +8,4 @@
 	    android:id="@android:id/list"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"/>
-	<!-- android:animateLayoutChanges="true" -->
-	<!-- TODO This animation looks really poor actually, is it because of my Loader? -->
 </FrameLayout>

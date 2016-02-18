@@ -82,9 +82,7 @@ public class EntriesListFrag extends ListFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View contentView = inflater.inflate(R.layout.saved_entries_frag, container, false);
-
-		return contentView;
+		return inflater.inflate(R.layout.fragment_saved_entries, container, false);
 	}
 
 	@Override

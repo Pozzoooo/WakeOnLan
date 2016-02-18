@@ -19,5 +19,4 @@
         android:layout_gravity="bottom"
         android:gravity="center_horizontal"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
 </FrameLayout>

@@ -37,7 +37,7 @@ public class LogAdapter extends CursorAdapter {
 
 	@Override
 	public View newView(Context context, Cursor cursor, ViewGroup parent) {
-		View line = inflater.inflate(R.layout.log_row, parent, false);
+		View line = inflater.inflate(R.layout.adapter_log, parent, false);
 		return line;
 	}
 

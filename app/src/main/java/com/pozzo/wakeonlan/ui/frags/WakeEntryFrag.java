@@ -72,7 +72,7 @@ public class WakeEntryFrag extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View contentView = inflater.inflate(R.layout.wake_entry_frag, container, false);
+		View contentView = inflater.inflate(R.layout.fragment_wake_entry, container, false);
 
 		eMac = (EditText) contentView.findViewById(R.id.eMac);
 		eIp = (EditText) contentView.findViewById(R.id.eIp);
