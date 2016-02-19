@@ -33,6 +33,7 @@ import com.pozzo.wakeonlan.database.WakeEntryCr;
 import com.pozzo.wakeonlan.exception.InvalidMac;
 import com.pozzo.wakeonlan.helper.NetworkUtils;
 import com.pozzo.wakeonlan.listener.SwipeDismissListViewTouchListener;
+import com.pozzo.wakeonlan.receiver.NetworkReceiver;
 import com.pozzo.wakeonlan.ui.activity.AddWakeEntryActivity;
 import com.pozzo.wakeonlan.ui.activity.MainActivity;
 import com.pozzo.wakeonlan.ui.adapter.WakeListAdapter;
@@ -61,6 +62,7 @@ public class EntriesListFrag extends ListFragment
 	private SQLiteDatabase loaderDb;
 	private boolean showDeleteds;
 	private String action;
+	private NetworkReceiver networkReceiver;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -95,6 +97,22 @@ public class EntriesListFrag extends ListFragment
 		Bundle extras = activity.getIntent().getExtras();
 		if(extras != null)
 			showDeleteds = extras.getBoolean(MainActivity.PARAM_SHOW_DELETEDS);
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		if(networkReceiver == null)
+			networkReceiver = NetworkReceiver.getInstance(onConnectionState, getActivity());
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		if(networkReceiver != null) {
+			networkReceiver.unregister(getActivity());
+			networkReceiver = null;
+		}
 	}
 
 	@Override
@@ -360,6 +378,17 @@ public class EntriesListFrag extends ListFragment
 					+ WakeEntryCr.IP + " like ? OR " + WakeEntryCr.MAC_ADDRESS + " like ? OR " 
 					+ WakeEntryCr.TRIGGER_SSID + " like ?) " + where, 
 					new String[] {query, query, query, query}, null, null, getOrderBy());
+		}
+	};
+
+	/**
+	 * When connection state is changed.
+	 */
+	private NetworkReceiver.OnConnectionState onConnectionState =
+			new NetworkReceiver.OnConnectionState() {
+		@Override
+		public void onConnectionState(boolean isConnected) {
+			refresh();
 		}
 	};
 }
