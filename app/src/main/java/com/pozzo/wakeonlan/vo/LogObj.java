@@ -65,7 +65,7 @@ public class LogObj {
 	 * @author Luiz Gustavo Pozzo
 	 * @since 2014-08-24
 	 */
-	public static enum How {
+	public enum How {
 		/**By default interface.*/
 		defaul("defaul", R.string.howDefaul, R.color.howDefaul),
 		/**Sent a WOL by home widget*/

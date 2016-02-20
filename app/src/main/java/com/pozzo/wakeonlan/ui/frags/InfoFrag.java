@@ -39,9 +39,8 @@ public class InfoFrag extends Fragment {
 	}
 
 /*
- * TODO
- * 	Criar metodo para poder ir para backgound
- * 	Criar metodo de criacao de fragment
+ * TODO	Criar metodo para poder ir para backgound
+ * TODO	Criar metodo de criacao de fragment
  */
 
 	private void loadAddress() {

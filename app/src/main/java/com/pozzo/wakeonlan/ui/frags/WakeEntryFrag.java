@@ -21,10 +21,6 @@ import android.widget.Toast;
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.helper.NetworkUtils;
 import com.pozzo.wakeonlan.vo.WakeEntry;
-import com.splunk.mint.Mint;
-
-import java.net.InetAddress;
-import java.net.SocketException;
 
 /**
  * Fragment which should register a new Mac to our database. 
@@ -270,15 +266,6 @@ public class WakeEntryFrag extends Fragment {
 		if(entry == null) {
 			entry = new WakeEntry();
 			entry.setPort(NetworkUtils.getDefaultWakePort());
-			try {
-                //TODO maybe I should let it null and get at runtime.
-				InetAddress myBroad = utils.getMyBroadcast();
-				if(myBroad != null)
-					entry.setIp(myBroad.getHostAddress());
-			} catch(final SocketException e) {
-				//We ignore, and user can fill manually
-				Mint.logException(e);
-			}
 		}
 
 		eMac.setText(entry.getMacAddress());

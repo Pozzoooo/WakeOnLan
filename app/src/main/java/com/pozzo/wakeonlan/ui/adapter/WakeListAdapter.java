@@ -33,16 +33,17 @@ public class WakeListAdapter extends CursorAdapter {
 	private DateFormat formatterDate;
 	private DateFormat formatterTime;
 	private Date before20;//20 hours before now
+	private String strBroadcast;
 
 	public WakeListAdapter(Context context, Cursor c, int flags) {
 		super(context, c, flags);
 		inflater = LayoutInflater.from(context);
-		//TODO refresh when reconnected or disconnected.
 		curentNetwork = NetworkUtils.getNetworkSsid(context);
 
 		formatterDate = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
 		formatterTime = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault());
 		before20 = new Date(System.currentTimeMillis() - (20 * 60 * 60 * 1000));
+		strBroadcast = context.getString(R.string.netBroadcast);
 	}
 
 	@Override
@@ -62,7 +63,11 @@ public class WakeListAdapter extends CursorAdapter {
 		TextView lLastSent = (TextView) view.findViewById(R.id.lLastSent);
 		TextView lWolCount = (TextView) view.findViewById(R.id.lWolCount);
 
-		lAddr.setText(entry.getIp() + PORT_SEPARATOR + entry.getPort());
+		String address = entry.getIp();
+		if(address == null || address.isEmpty())
+			address = strBroadcast;
+
+		lAddr.setText(address + PORT_SEPARATOR + entry.getPort());
 		lMacAddr.setText(entry.getMacAddress());
 		lName.setText(entry.getName());
 		lWolCount.setText("" + entry.getWolCount());

@@ -224,7 +224,6 @@ public class EntriesListFrag extends ListFragment
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			WakeEntry entry = (WakeEntry) getListAdapter().getItem(position);
 
-			//TODO It usually is done at onAttach method, is this acceptable?
 			if(!(getActivity() instanceof MainActivity)) {
 				IllegalArgumentException bug = new IllegalArgumentException(
 							"Widget creationg bug, fragment attached in different activity!");
