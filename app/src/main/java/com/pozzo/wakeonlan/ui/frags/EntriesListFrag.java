@@ -32,7 +32,6 @@ import com.pozzo.wakeonlan.database.ConexaoDBManager;
 import com.pozzo.wakeonlan.database.WakeEntryCr;
 import com.pozzo.wakeonlan.exception.InvalidMac;
 import com.pozzo.wakeonlan.helper.NetworkUtils;
-import com.pozzo.wakeonlan.listener.SwipeDismissListViewTouchListener;
 import com.pozzo.wakeonlan.receiver.NetworkReceiver;
 import com.pozzo.wakeonlan.ui.activity.AddWakeEntryActivity;
 import com.pozzo.wakeonlan.ui.activity.MainActivity;
@@ -84,7 +83,9 @@ public class EntriesListFrag extends ListFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_saved_entries, container, false);
+		View contentView = inflater.inflate(R.layout.fragment_saved_entries, container, false);
+		setListAdapter(new WakeListAdapter(getActivity(), null, 0));
+		return contentView;
 	}
 
 	@Override
@@ -243,7 +244,7 @@ public class EntriesListFrag extends ListFragment
 
 			@Override
 			protected Integer doInBackground(Void... params) {
-				try {//TODO we need to create a better message and handle too long mac address
+				try {
 					LogObj log = new LogObj(How.defaul, entry.getId(), Action.sent);
 					new WakeBusiness().wakeUp(entry, log);
 				} catch (IOException e) {
@@ -319,42 +320,13 @@ public class EntriesListFrag extends ListFragment
 		};
 	}
 
+	//TODO refresh is not going well when a new entry is created
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		final ListView listView = getListView();
-		WakeListAdapter adapter = new WakeListAdapter(getActivity(), data, 0);
+		final WakeListAdapter adapter = (WakeListAdapter) getListAdapter();
+		adapter.swapCursor(data);
 		adapter.setFilterQueryProvider(filter);
-		setListAdapter(adapter);
-
-		SwipeDismissListViewTouchListener touchListener =
-            new SwipeDismissListViewTouchListener(listView,
-                new SwipeDismissListViewTouchListener.DismissCallbacks() {
-                    @Override
-                    public boolean canDismiss(int position) {
-                        return false;//!showDeleteds;//TODO why do you reset the position?
-                    }
-
-                    @Override
-                    public void onDismiss(ListView listView, final int[] reverseSortedPositions) {
-                        new AsyncTask<Void, Void, Void>() {
-                        	protected Void doInBackground(Void... params) {
-                        		WakeBusiness bus = new WakeBusiness();
-                        		WakeListAdapter adapter = (WakeListAdapter) getListAdapter();
-                        		for(int it : reverseSortedPositions) {
-                        			bus.trash(adapter.getItem(it).getId());
-                        		}
-                                refresh();
-                        		return null;
-                        	}
-
-                        	protected void onPostExecute(Void result) {
-                        	}
-                        }.execute();
-                    }
-                });
-
-		listView.setOnTouchListener(touchListener);
-		listView.setOnScrollListener(touchListener.makeScrollListener());
 	}
 
 	@Override

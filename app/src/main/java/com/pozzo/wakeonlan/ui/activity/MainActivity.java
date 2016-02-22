@@ -152,8 +152,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
 		case REQ_ADD:
-			boolean result = resultCode == RESULT_OK;
-			if(result)//Refresh if something new.
+			if(resultCode == RESULT_OK)//Refresh if something new.
 				entryListFrag.refresh();
 			break;
 		case REQ_DEL:
