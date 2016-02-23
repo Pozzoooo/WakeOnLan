@@ -30,8 +30,13 @@ public class ConexaoDBManager {
 	 * TODO This looks like an easy point for leaking resource or context, needs approach review.
 	 */
 	public SQLiteDatabase getDb() {
-		if(db == null || !db.isOpen())
-			db = new SqliteHelper(context).getWritableDatabase();
+		if(db == null || !db.isOpen()) {
+			synchronized (ConexaoDBManager.class) {
+				if(db == null || !db.isOpen()) {
+					db = new SqliteHelper(context).getWritableDatabase();
+				}
+			}
+		}
 		return db;
 	}
 
