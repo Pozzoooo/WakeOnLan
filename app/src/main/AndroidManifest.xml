@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pozzo.wakeonlan"
-    android:versionCode="9"
-    android:versionName="1.4.4" >
-
-    <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="21" />
+    package="com.pozzo.wakeonlan" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -65,5 +59,4 @@
                 android:resource="@xml/gong_widget" />
         </receiver>
     </application>
-
 </manifest>
