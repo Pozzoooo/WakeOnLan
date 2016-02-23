@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 		setContentView(R.layout.activity_main);
 
 		entryListFrag = (EntriesListFrag)
-				getFragmentManager().findFragmentById(R.id.fragEntryList);
+				getSupportFragmentManager().findFragmentById(R.id.fragEntryList);
 
 		checkEmptiness();
 

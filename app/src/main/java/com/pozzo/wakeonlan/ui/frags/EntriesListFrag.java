@@ -1,15 +1,15 @@
 package com.pozzo.wakeonlan.ui.frags;
 
-import android.app.Activity;
-import android.app.ListFragment;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.appwidget.AppWidgetManager;
+import android.content.Context;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -55,8 +55,8 @@ import java.io.IOException;
  * @see WakeListAdapter
  * @see WakeEntry
  */
-public class EntriesListFrag extends ListFragment 
-		implements OnQueryTextListener, LoaderCallbacks<Cursor> {
+public class EntriesListFrag extends ListFragment
+		implements OnQueryTextListener, LoaderManager.LoaderCallbacks<Cursor> {
 	private ConexaoDBManager conexao;
 	private SQLiteDatabase loaderDb;
 	private boolean showDeleteds;
@@ -67,8 +67,6 @@ public class EntriesListFrag extends ListFragment
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		getLoaderManager().initLoader(1, null, this);
-
 		ListView listEntries = getListView();
 		if(!AppWidgetManager.ACTION_APPWIDGET_CONFIGURE.equals(action)) {
 			listEntries.setOnItemClickListener(onSendWake);
@@ -78,24 +76,27 @@ public class EntriesListFrag extends ListFragment
 			listEntries.setOnItemClickListener(onChoice);
 			listEntries.setChoiceMode(ListView.CHOICE_MODE_NONE);
 		}
+		refresh();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View contentView = inflater.inflate(R.layout.fragment_saved_entries, container, false);
-		setListAdapter(new WakeListAdapter(getActivity(), null, 0));
+		WakeListAdapter adapter = new WakeListAdapter(getActivity(), null, 0);
+		adapter.setFilterQueryProvider(filter);
+		setListAdapter(adapter);
 		return contentView;
 	}
 
 	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
+	public void onAttach(Context context) {
+		super.onAttach(context);
 
-		conexao = new ConexaoDBManager(activity);
-		action = activity.getIntent().getAction();
+		conexao = new ConexaoDBManager(context);
+		action = getActivity().getIntent().getAction();
 
-		Bundle extras = activity.getIntent().getExtras();
+		Bundle extras = getActivity().getIntent().getExtras();
 		if(extras != null)
 			showDeleteds = extras.getBoolean(MainActivity.PARAM_SHOW_DELETEDS);
 	}
@@ -303,7 +304,13 @@ public class EntriesListFrag extends ListFragment
 	 * Refresh current loader manger.
 	 */
 	public void refresh() {
-		getLoaderManager().restartLoader(1, null, this);
+		LoaderManager loaderManager = getLoaderManager();
+		final Loader<Cursor> loader = loaderManager.getLoader(1);
+		if (loader != null && !loader.isReset()) {
+			loaderManager.restartLoader(1, null, this);
+		} else {
+			loaderManager.initLoader(1, null, this);
+		}
 	}
 
 	@Override
@@ -314,19 +321,18 @@ public class EntriesListFrag extends ListFragment
 				loaderDb = conexao.getDb();
 				String where = WakeEntryCr.DELETED_DATE 
 						+ (showDeleteds ? " is not null" : " is null");
-				return loaderDb.query(
+				Cursor cursor = loaderDb.query(
 						WakeEntryCr.TB_NAME, null, where, null, null, null, getOrderBy());
+				System.out.println("cursor count: " + cursor.getCount());
+				return cursor;
 			}
 		};
 	}
 
-	//TODO refresh is not going well when a new entry is created
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-		final ListView listView = getListView();
 		final WakeListAdapter adapter = (WakeListAdapter) getListAdapter();
 		adapter.swapCursor(data);
-		adapter.setFilterQueryProvider(filter);
 	}
 
 	@Override

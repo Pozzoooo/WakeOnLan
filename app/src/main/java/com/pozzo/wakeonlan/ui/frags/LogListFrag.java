@@ -1,12 +1,12 @@
 package com.pozzo.wakeonlan.ui.frags;
 
-import android.app.Activity;
-import android.app.ListFragment;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.Loader;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +29,8 @@ import com.pozzo.wakeonlan.vo.LogObj;
  * @author Luiz Gustavo Pozzo
  * @since 2014-09-07
  */
-public class LogListFrag extends ListFragment 
-		implements OnQueryTextListener, LoaderCallbacks<Cursor> {
+public class LogListFrag extends ListFragment
+		implements OnQueryTextListener, LoaderManager.LoaderCallbacks<Cursor> {
 	private ConexaoDBManager conexao;
 	private SQLiteDatabase loaderDb;
 
@@ -49,9 +49,9 @@ public class LogListFrag extends ListFragment
 	}
 
 	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		conexao = new ConexaoDBManager(activity);
+	public void onAttach(Context context) {
+		super.onAttach(context);
+		conexao = new ConexaoDBManager(context);
 	}
 
 	@Override

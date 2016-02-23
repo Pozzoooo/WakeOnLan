@@ -33,7 +33,7 @@ public class LogListActivity extends AppCompatActivity implements SearchView.OnQ
 		if(actionBar != null)
 			actionBar.setDisplayHomeAsUpEnabled(true);
 
-		logListFrag = (LogListFrag) getFragmentManager().findFragmentById(R.id.fragLogList);
+		logListFrag = (LogListFrag) getSupportFragmentManager().findFragmentById(R.id.fragLogList);
 	}
 
 	@Override
