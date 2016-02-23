@@ -321,10 +321,8 @@ public class EntriesListFrag extends ListFragment
 				loaderDb = conexao.getDb();
 				String where = WakeEntryCr.DELETED_DATE 
 						+ (showDeleteds ? " is not null" : " is null");
-				Cursor cursor = loaderDb.query(
+				return loaderDb.query(
 						WakeEntryCr.TB_NAME, null, where, null, null, null, getOrderBy());
-				System.out.println("cursor count: " + cursor.getCount());
-				return cursor;
 			}
 		};
 	}

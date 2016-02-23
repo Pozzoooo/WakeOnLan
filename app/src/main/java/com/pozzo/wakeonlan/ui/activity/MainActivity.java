@@ -152,8 +152,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
 		case REQ_ADD:
-			if(resultCode == RESULT_OK)//Refresh if something new.
-				entryListFrag.refresh();
+			//CursorLoader should refresh automatically
 			break;
 		case REQ_DEL:
 			//it was going to be quite dirt code to better control this
