@@ -11,23 +11,32 @@
         android:animateLayoutChanges="true"
         android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/eName"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/name"
-            android:inputType="text" >
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/eName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                android:inputType="text" >
 
-            <requestFocus />
-        </EditText>
+                <requestFocus />
+            </EditText>
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/eMac"
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/macAddress"
-            android:digits="0123456789ABCDEF"
-            android:inputType="textCapCharacters|textNoSuggestions" />
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/eMac"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/macAddress"
+                android:digits="0123456789ABCDEF"
+                android:inputType="textCapCharacters|textNoSuggestions" />
+        </android.support.design.widget.TextInputLayout>
 
         <View
             android:layout_width="match_parent"
@@ -46,38 +55,53 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <EditText
-                android:id="@+id/eIp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/ip"
-                android:inputType="text" />
 
-            <EditText
-                android:id="@+id/ePort"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/port"
-                android:inputType="number" />
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/eIp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/ip"
+                    android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/ePort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/port"
+                    android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
-                <EditText
-                    android:id="@+id/eTriggerSsid"
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilTriggerSsid"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/triggerSsid"
-                    android:inputType="text" />
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/eTriggerSsid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/triggerSsid"
+                        android:inputType="text" />
+                </android.support.design.widget.TextInputLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:orientation="horizontal"
                     android:layout_alignParentRight="true"
-                    android:layout_alignBottom="@id/eTriggerSsid"
-                    android:layout_alignTop="@id/eTriggerSsid" >
+                    android:layout_alignBottom="@id/tilTriggerSsid"
+                    android:layout_alignTop="@id/tilTriggerSsid" >
 
                     <ImageButton
                         android:id="@+id/bSsid"
