@@ -1,4 +1,6 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -53,8 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
-
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -120,7 +122,19 @@
                         android:src="@drawable/ic_action_help" />
                 </LinearLayout>
             </RelativeLayout>
-        </LinearLayout>
 
+            <TextView
+                android:id="@+id/lTimeFrame"
+                android:layout_marginTop="@dimen/shortMargin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/timeFrame"/>
+
+            <Spinner
+                android:id="@+id/sTimeFrame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/timeFrames"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

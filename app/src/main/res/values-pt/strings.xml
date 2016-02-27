@@ -34,6 +34,11 @@
     <string name="howWidgetHome">home widget</string>
     <string name="howTrigged">trigged</string>
 
+    <string name="morning">manhã</string>
+    <string name="afternoon">tarde</string>
+    <string name="evening">anoitecer</string>
+    <string name="night">madrugada</string>
+
 <!--     Tutorial messages -->
     <string name="tutoCreate">Para criar novos registros utilize este botão</string>
     <string name="tutoWake">Para enviar o pacote mágico, apenas toque a linha desejada</string>
@@ -55,6 +60,7 @@
     <string name="macAddress">Mac Address</string>
     <string name="triggerSsid">Disparar ao acessar</string>
     <string name="showAdvancedSettings">Configurações avançadas</string>
+    <string name="timeFrame">Apenas disparar na</string>
 
 <!--     Help -->
 	<string name="helpMsg">Para que o aplicativo funcione, é preciso que seja previamente 

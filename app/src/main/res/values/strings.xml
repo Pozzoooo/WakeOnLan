@@ -38,6 +38,11 @@
     <string name="howWidgetHome">home widget</string>
     <string name="howTrigged">trigged</string>
 
+    <string name="morning">morning</string>
+    <string name="afternoon">afternoon</string>
+    <string name="evening">evening</string>
+    <string name="night">night</string>
+
 <!--     Tutorial messages -->
     <string name="tutoCreate">Use this button to create a new entry</string>
     <string name="tutoWake">Just touch an entry to sent a new Magic Package</string>
@@ -59,6 +64,7 @@
     <string name="macAddress">MAC Address</string>
     <string name="triggerSsid">Trigger on network</string>
     <string name="showAdvancedSettings">Show advanced settings</string>
+    <string name="timeFrame">Only trigger at the</string>
 
 <!--     Help -->
 	<string name="helpMsg">You need to pre-configure desired machine(s) to 
