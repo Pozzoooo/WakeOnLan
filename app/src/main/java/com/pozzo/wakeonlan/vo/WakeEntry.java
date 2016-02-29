@@ -21,6 +21,8 @@ public class WakeEntry implements Serializable {
 	private Date deletedDate;
 	private Date lastWolSentDate;
 	private int wolCount;
+	private long startLimit;
+	private long endLimit;
 
 	public void setId(long id) {
 		this.id = id;
@@ -81,5 +83,21 @@ public class WakeEntry implements Serializable {
 	 */
 	public int increasCount() {
 		return ++wolCount;
+	}
+
+	public long getStartLimit() {
+		return startLimit;
+	}
+
+	public void setStartLimit(long startLimit) {
+		this.startLimit = startLimit;
+	}
+
+	public long getEndLimit() {
+		return endLimit;
+	}
+
+	public void setEndLimit(long endLimit) {
+		this.endLimit = endLimit;
 	}
 }

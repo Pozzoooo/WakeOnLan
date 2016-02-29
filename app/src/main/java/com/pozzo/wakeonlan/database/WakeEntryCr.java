@@ -27,6 +27,8 @@ public class WakeEntryCr {
 	public static final String LAST_WOL_SENT_DATE = "last_wol_sent_date";
 	//it will count the number of wol sented
 	public static final String WOL_COUNT = "wol_count";
+	public static final String START_LIMIT = "start_limit";
+	public static final String END_LIMIT = "end_limit";
 
 	/**
 	 * Create Table SQL.
@@ -40,7 +42,9 @@ public class WakeEntryCr {
 			TRIGGER_SSID + " varchar, " +
 			DELETED_DATE + " bigint, " +
 			LAST_WOL_SENT_DATE + " bigint, " +
-			WOL_COUNT + " integer" +
+			WOL_COUNT + " integer, " +
+			START_LIMIT + " integer, " +
+			END_LIMIT + " integer" +
 		");";
 
 	/**
@@ -57,6 +61,8 @@ public class WakeEntryCr {
 		values.put(PORT, entry.getPort());
 		values.put(TRIGGER_SSID, entry.getTriggerSsid());
 		values.put(WOL_COUNT, entry.getWolCount());
+		values.put(START_LIMIT, entry.getStartLimit());
+		values.put(END_LIMIT, entry.getEndLimit());
 
 		//Special handle for deleted date.
 		if(entry.getDeletedDate() != null)
@@ -84,6 +90,8 @@ public class WakeEntryCr {
 		entry.setPort(cursor.getInt(cursor.getColumnIndex(PORT)));
 		entry.setTriggerSsid(cursor.getString(cursor.getColumnIndex(TRIGGER_SSID)));
 		entry.setWolCount(cursor.getInt(cursor.getColumnIndex(WOL_COUNT)));
+		entry.setStartLimit(cursor.getLong(cursor.getColumnIndex(START_LIMIT)));
+		entry.setEndLimit(cursor.getLong(cursor.getColumnIndex(END_LIMIT)));
 
 		//Special handle for nullable fields.
 		int idx = cursor.getColumnIndex(DELETED_DATE);

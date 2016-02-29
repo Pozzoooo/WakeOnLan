@@ -16,7 +16,7 @@ import com.splunk.mint.Mint;
  * @since 2014-05-03
  */
 public class SqliteHelper extends SQLiteOpenHelper {
-	private static final int DATABASE_VERSION = 6;
+	private static final int DATABASE_VERSION = 7;
 	private static final String DB_NAME = "db.db";
 
 	public SqliteHelper(Context context) {
@@ -65,6 +65,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
             db.execSQL(WakeEntryCr.TB_CREATE);
             db.execSQL("INSERT INTO " + WakeEntryCr.TB_NAME + " SELECT * FROM tempWake");
             db.execSQL("DROP TABLE tempWake");
+		case 6:
+			//Add new fields
+			db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " ADD COLUMN "
+					+ WakeEntryCr.START_LIMIT + " integer;");
+			db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " ADD COLUMN "
+					+ WakeEntryCr.END_LIMIT + " integer;");
 		default:
 			break;
 		}
