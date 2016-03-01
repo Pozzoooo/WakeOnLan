@@ -38,6 +38,7 @@
     <string name="howWidgetHome">home widget</string>
     <string name="howTrigged">trigged</string>
 
+    <string name="allDay">all day</string>
     <string name="morning">morning</string>
     <string name="afternoon">afternoon</string>
     <string name="evening">evening</string>

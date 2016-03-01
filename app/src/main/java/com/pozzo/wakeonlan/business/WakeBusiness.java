@@ -16,7 +16,9 @@ import com.splunk.mint.Mint;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -199,5 +201,48 @@ public class WakeBusiness {
 	 */
 	public void recover(long... ids) {
 		new WakeEntryDao().recover(ids);
+	}
+
+	/**
+	 * This is where we defines our time frames.
+	 * Also take a look at @arrays/timeFrames
+	 *
+	 * @param entry to be setted to.
+	 * @param choosenRange The range which will be converted.
+	 */
+	public void setTimeRange(WakeEntry entry, int choosenRange) {
+		Calendar startTime = GregorianCalendar.getInstance();
+		startTime.set(Calendar.MINUTE, 0);
+		startTime.set(Calendar.SECOND, 0);
+		startTime.set(Calendar.MILLISECOND, 0);
+		Calendar endTime = GregorianCalendar.getInstance();
+		endTime.set(Calendar.MINUTE, 59);
+		endTime.set(Calendar.SECOND, 59);
+		endTime.set(Calendar.MILLISECOND, 999);
+		switch (choosenRange) {
+			case 0://all day
+			default:
+				startTime.set(Calendar.HOUR_OF_DAY, 0);
+				endTime.set(Calendar.HOUR_OF_DAY, 23);
+				break;
+			case 1://morning
+				startTime.set(Calendar.HOUR_OF_DAY, 5);
+				endTime.set(Calendar.HOUR_OF_DAY, 11);
+				break;
+			case 2://afternoon
+				startTime.set(Calendar.HOUR_OF_DAY, 11);
+				endTime.set(Calendar.HOUR_OF_DAY, 19);
+				break;
+			case 3://evening
+				startTime.set(Calendar.HOUR_OF_DAY, 18);
+				endTime.set(Calendar.HOUR_OF_DAY, 23);
+				break;
+			case 4://night
+				startTime.set(Calendar.HOUR_OF_DAY, 0);
+				endTime.set(Calendar.HOUR_OF_DAY, 8);
+				break;
+		}
+		entry.setStartLimit(startTime.getTimeInMillis());
+		entry.setEndLimit(endTime.getTimeInMillis());
 	}
 }

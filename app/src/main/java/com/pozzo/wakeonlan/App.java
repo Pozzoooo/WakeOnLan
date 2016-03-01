@@ -11,8 +11,6 @@ import com.splunk.mint.Mint;
  * 
  * @author Luiz Gustavo Pozzo
  * @since 2014-05-03
- *
- * TODO add time range limit, so wol wont be sent in the wrong moment.
  */
 public class App extends Application {
 	private static App appContext;

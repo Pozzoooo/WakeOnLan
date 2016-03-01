@@ -16,9 +16,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.pozzo.wakeonlan.R;
+import com.pozzo.wakeonlan.business.WakeBusiness;
 import com.pozzo.wakeonlan.helper.NetworkUtils;
 import com.pozzo.wakeonlan.vo.WakeEntry;
 
@@ -31,6 +33,7 @@ import com.pozzo.wakeonlan.vo.WakeEntry;
 public class WakeEntryFrag extends Fragment {
 	private WakeEntry entry;
 	private NetworkUtils utils;
+	private WakeBusiness wakeBusiness;
 
 	private EditText eMac;
 	private EditText eIp;
@@ -38,14 +41,15 @@ public class WakeEntryFrag extends Fragment {
 	private EditText eName;
 	private EditText eTrigger;
     private ViewGroup vgAdvancedSettings;
+	private Spinner sTimeFrame;
 
 	//Pre-configs
 	private boolean showAdvanced;
 
 	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		loadPreferences(activity);
+	public void onAttach(Context context) {
+		super.onAttach(context);
+		loadPreferences(context);
 	}
 
 	@Override
@@ -56,6 +60,8 @@ public class WakeEntryFrag extends Fragment {
 
 		if(savedInstanceState != null)
 			restoreInstance(savedInstanceState);
+
+		wakeBusiness = new WakeBusiness();
 	}
 
 	@Override
@@ -76,6 +82,7 @@ public class WakeEntryFrag extends Fragment {
 		eName = (EditText) contentView.findViewById(R.id.eName);
 		eTrigger = (EditText) contentView.findViewById(R.id.eTriggerSsid);
         vgAdvancedSettings = (ViewGroup) contentView.findViewById(R.id.vgAdvancedSettings);
+		sTimeFrame = (Spinner) contentView.findViewById(R.id.sTimeFrame);
 
 		ImageButton bHelpTrigger = (ImageButton) contentView.findViewById(R.id.bHelpTrigger);
 		ImageButton bSsid = (ImageButton) contentView.findViewById(R.id.bSsid);
@@ -193,6 +200,7 @@ public class WakeEntryFrag extends Fragment {
 		entry.setIp(eIp.getText().toString());
 		entry.setName(eName.getText().toString());
 		entry.setTriggerSsid(eTrigger.getText().toString());
+		wakeBusiness.setTimeRange(entry, sTimeFrame.getSelectedItemPosition());
 
 		try {
 			entry.setPort(Integer.parseInt(ePort.getText().toString()));
