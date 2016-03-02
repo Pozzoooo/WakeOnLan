@@ -1,6 +1,5 @@
 package com.pozzo.wakeonlan.ui.frags;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -281,5 +280,6 @@ public class WakeEntryFrag extends Fragment {
 		ePort.setText("" + entry.getPort());
 		eIp.setText(entry.getIp());
 		eTrigger.setText(entry.getTriggerSsid());
+		sTimeFrame.setSelection(entry.getTimeRangeIndex());
 	}
 }

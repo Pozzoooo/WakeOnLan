@@ -242,6 +242,7 @@ public class WakeBusiness {
 				endTime.set(Calendar.HOUR_OF_DAY, 8);
 				break;
 		}
+		entry.setTimeRangeIndex(choosenRange);
 		entry.setStartLimit(startTime.getTimeInMillis());
 		entry.setEndLimit(endTime.getTimeInMillis());
 	}

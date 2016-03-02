@@ -21,6 +21,7 @@ public class WakeEntry implements Serializable {
 	private Date deletedDate;
 	private Date lastWolSentDate;
 	private int wolCount;
+	private int timeRangeIndex;
 	private long startLimit;
 	private long endLimit;
 
@@ -99,5 +100,13 @@ public class WakeEntry implements Serializable {
 
 	public void setEndLimit(long endLimit) {
 		this.endLimit = endLimit;
+	}
+
+	public int getTimeRangeIndex() {
+		return timeRangeIndex;
+	}
+
+	public void setTimeRangeIndex(int timeRangeIndex) {
+		this.timeRangeIndex = timeRangeIndex;
 	}
 }

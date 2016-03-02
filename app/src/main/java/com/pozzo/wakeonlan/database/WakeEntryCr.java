@@ -27,6 +27,7 @@ public class WakeEntryCr {
 	public static final String LAST_WOL_SENT_DATE = "last_wol_sent_date";
 	//it will count the number of wol sented
 	public static final String WOL_COUNT = "wol_count";
+	public static final String TIME_RANGE_INDEX = "time_range_index";
 	public static final String START_LIMIT = "start_limit";
 	public static final String END_LIMIT = "end_limit";
 
@@ -43,6 +44,7 @@ public class WakeEntryCr {
 			DELETED_DATE + " bigint, " +
 			LAST_WOL_SENT_DATE + " bigint, " +
 			WOL_COUNT + " integer, " +
+			TIME_RANGE_INDEX + " integer, " +
 			START_LIMIT + " integer, " +
 			END_LIMIT + " integer" +
 		");";
@@ -61,6 +63,7 @@ public class WakeEntryCr {
 		values.put(PORT, entry.getPort());
 		values.put(TRIGGER_SSID, entry.getTriggerSsid());
 		values.put(WOL_COUNT, entry.getWolCount());
+		values.put(TIME_RANGE_INDEX, entry.getTimeRangeIndex());
 		values.put(START_LIMIT, entry.getStartLimit());
 		values.put(END_LIMIT, entry.getEndLimit());
 
@@ -90,6 +93,7 @@ public class WakeEntryCr {
 		entry.setPort(cursor.getInt(cursor.getColumnIndex(PORT)));
 		entry.setTriggerSsid(cursor.getString(cursor.getColumnIndex(TRIGGER_SSID)));
 		entry.setWolCount(cursor.getInt(cursor.getColumnIndex(WOL_COUNT)));
+		entry.setTimeRangeIndex(cursor.getInt(cursor.getColumnIndex(TIME_RANGE_INDEX)));
 		entry.setStartLimit(cursor.getLong(cursor.getColumnIndex(START_LIMIT)));
 		entry.setEndLimit(cursor.getLong(cursor.getColumnIndex(END_LIMIT)));
 

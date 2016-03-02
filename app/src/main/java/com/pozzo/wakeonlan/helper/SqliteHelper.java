@@ -68,6 +68,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
 		case 6:
 			//Add new fields
 			db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " ADD COLUMN "
+					+ WakeEntryCr.TIME_RANGE_INDEX + " integer;");
+			db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " ADD COLUMN "
 					+ WakeEntryCr.START_LIMIT + " integer;");
 			db.execSQL("ALTER TABLE " + WakeEntryCr.TB_NAME + " ADD COLUMN "
 					+ WakeEntryCr.END_LIMIT + " integer;");
