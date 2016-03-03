@@ -11,6 +11,9 @@ import com.splunk.mint.Mint;
  * 
  * @author Luiz Gustavo Pozzo
  * @since 2014-05-03
+ *
+ * TODO show advanced is holding state?
+ * TODO Validated timeFrame funcionality.
  */
 public class App extends Application {
 	private static App appContext;
