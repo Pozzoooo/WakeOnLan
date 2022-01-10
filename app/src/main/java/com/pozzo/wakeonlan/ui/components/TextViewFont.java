@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import com.pozzo.wakeonlan.R;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  * A default TextView, but easy to change font style.
@@ -14,7 +15,7 @@ import com.pozzo.wakeonlan.R;
  * @author Luiz Gustavo Pozzo
  * @since 2014-05-03
  */
-public class TextViewFont extends TextView {
+public class TextViewFont extends AppCompatTextView {
 
 	public TextViewFont(Context context) {
 		super(context);
@@ -35,7 +36,7 @@ public class TextViewFont extends TextView {
 			return;
 
 		TypedArray a = ctx.obtainStyledAttributes(attrs, R.styleable.textViewFont);
-		String customFont = a.getString(R.styleable.textViewFont_font);
+		String customFont = a.getString(R.styleable.textViewFont_fonte);
 		setCustomFont(ctx, customFont);
 		a.recycle();
 	}

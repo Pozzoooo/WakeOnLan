@@ -10,7 +10,7 @@
 
     <style name="textViewTutorial">
         <item name="android:textColor">@color/tutorialColor</item>
-        <item name="font">JandaCurlygirlChunky.ttf</item>
+        <item name="fonte">JandaCurlygirlChunky.ttf</item>
     </style>
 
     <style name="separator">

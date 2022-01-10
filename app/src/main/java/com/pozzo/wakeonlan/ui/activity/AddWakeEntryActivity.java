@@ -1,7 +1,6 @@
 package com.pozzo.wakeonlan.ui.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -12,6 +11,8 @@ import com.pozzo.wakeonlan.business.WakeBusiness;
 import com.pozzo.wakeonlan.helper.ItemMenuHelper;
 import com.pozzo.wakeonlan.ui.frags.WakeEntryFrag;
 import com.pozzo.wakeonlan.vo.WakeEntry;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Where our lovely User will input a new Entry.

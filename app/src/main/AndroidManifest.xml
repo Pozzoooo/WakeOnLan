@@ -17,7 +17,8 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/appName" >
+            android:label="@string/appName"
+			android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +36,8 @@
 
 		<receiver 
 		    android:name=".receiver.NetworkConnectionReceiver"
-		    android:enabled="false">
+		    android:enabled="false"
+			android:exported="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" >
                 </action>
@@ -43,13 +45,15 @@
 		</receiver>
         <receiver
             android:name=".receiver.BootReceiver"
-            android:enabled="false" >
+            android:enabled="false"
+			android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" >
                 </action>
             </intent-filter>
         </receiver>
-        <receiver android:name="com.pozzo.wakeonlan.receiver.GongWidget" >
+        <receiver android:name="com.pozzo.wakeonlan.receiver.GongWidget"
+			android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

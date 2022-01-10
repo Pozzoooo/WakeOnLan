@@ -1,9 +1,6 @@
 package com.pozzo.wakeonlan.ui.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,6 +10,10 @@ import com.pozzo.wakeonlan.App;
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.business.LogBusiness;
 import com.pozzo.wakeonlan.ui.frags.LogListFrag;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 /**
  * Will hold log fragments.

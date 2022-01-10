@@ -5,14 +5,14 @@
 	android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-	<fragment 
+	<fragment
 	    android:id="@+id/fragEntryList"
 	    class="com.pozzo.wakeonlan.ui.frags.EntriesListFrag"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 		tools:layout="@layout/fragment_saved_entries"/>
 
-	<android.support.design.widget.FloatingActionButton
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
 		android:id="@+id/fab"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

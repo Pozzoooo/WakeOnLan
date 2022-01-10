@@ -6,16 +6,13 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pozzo.wakeonlan.App;
 import com.pozzo.wakeonlan.R;
 import com.pozzo.wakeonlan.business.WakeBusiness;
@@ -26,6 +23,10 @@ import com.pozzo.wakeonlan.ui.frags.EntriesListFrag;
 import com.pozzo.wakeonlan.ui.frags.HelpDialog;
 import com.pozzo.wakeonlan.vo.WakeEntry;
 import com.splunk.mint.Mint;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 /**
  * Well, this is our Main Activity =D.

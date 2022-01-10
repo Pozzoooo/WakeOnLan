@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +19,10 @@ import com.pozzo.wakeonlan.database.WakeEntryCr;
 import com.pozzo.wakeonlan.ui.adapter.LogAdapter;
 import com.pozzo.wakeonlan.ui.loder.SimpleCursorLoader;
 import com.pozzo.wakeonlan.vo.LogObj;
+
+import androidx.fragment.app.ListFragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 
 /**
  * This fragment will show all logged events.
